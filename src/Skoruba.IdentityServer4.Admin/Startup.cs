@@ -31,6 +31,9 @@ namespace Skoruba.IdentityServer4.Admin
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
+
             // Adds the IdentityServer4 Admin UI with custom options.
             services.AddIdentityServer4AdminUI<AdminIdentityDbContext, IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext,
             AdminLogDbContext, AdminAuditLogDbContext, AuditLog, IdentityServerDataProtectionDbContext,
