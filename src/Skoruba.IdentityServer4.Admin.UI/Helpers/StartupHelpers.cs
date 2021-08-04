@@ -46,6 +46,7 @@ using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.MySql;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.PostgreSQL;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.SqlServer;
 using Skoruba.IdentityServer4.Shared.Configuration.Authentication;
+using Skoruba.IdentityServer4.Shared.Configuration.Configuration;
 
 namespace Skoruba.IdentityServer4.Admin.UI.Helpers
 {

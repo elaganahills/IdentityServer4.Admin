@@ -1,0 +1,31 @@
+{
+  "ConnectionStrings": {
+    "ConfigurationDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "PersistedGrantDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "IdentityDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "AdminLogDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "AdminAuditLogDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "DataProtectionDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "SerilogDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "AdminConfiguration": {
+    "IdentityAdminRedirectUri": "https://localhost:44303/signin-oidc",
+    "IdentityServerBaseUrl": "https://localhost:44310",
+    "ClientSecret": "hills_admin_client_secret",    
+  },
+  "EndPoints": [
+    {
+      "Name": "dafault",
+      "IpAddress": "127.0.0.1",
+      "Port": 44304,
+      "UseHttps": true,
+      "Certificate_Type": "File",
+      "Certificate_StoreName": "Root",
+      "Certificate_Subject": "CN=localhost",
+      "Certificate_FileName": "certificate.pfx",
+      "Certificate_FilePath": "C:\\test\\certificate.pfx",
+      "Certificate_Password": "Hills2020"
+
+    }
+  ]
+}

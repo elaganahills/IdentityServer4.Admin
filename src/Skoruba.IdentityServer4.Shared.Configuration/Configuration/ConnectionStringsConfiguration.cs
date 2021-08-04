@@ -1,4 +1,4 @@
-﻿namespace Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Configuration
+﻿namespace Skoruba.IdentityServer4.Shared.Configuration.Configuration
 {
 	public class ConnectionStringsConfiguration
 	{
@@ -14,6 +14,8 @@
 
 		public string DataProtectionDbConnection { get; set; }
 
+		public string SerilogDbConnection { get; set; }
+
 		public void SetConnections(string commonConnectionString)
 		{
 			AdminAuditLogDbConnection = commonConnectionString;
@@ -22,6 +24,7 @@
 			DataProtectionDbConnection = commonConnectionString;
 			IdentityDbConnection = commonConnectionString;
 			PersistedGrantDbConnection = commonConnectionString;
+			SerilogDbConnection = commonConnectionString;
 		}
 	}
 }

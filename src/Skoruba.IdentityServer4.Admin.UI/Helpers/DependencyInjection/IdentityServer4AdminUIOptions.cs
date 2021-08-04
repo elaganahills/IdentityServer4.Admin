@@ -5,6 +5,7 @@ using Skoruba.IdentityServer4.Admin.UI.Configuration.Constants;
 using System;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Configuration;
 using Skoruba.IdentityServer4.Shared.Configuration.Configuration.Common;
+using Skoruba.IdentityServer4.Shared.Configuration.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

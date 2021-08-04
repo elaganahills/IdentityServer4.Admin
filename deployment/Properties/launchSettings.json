@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Hills.IdentityServer4.Deployment": {
+      "commandName": "Project"
+    }
+  }
+}

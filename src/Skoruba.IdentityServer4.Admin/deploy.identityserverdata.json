@@ -1,0 +1,68 @@
+{
+  "IdentityServerData": {
+    "Clients": [
+      {
+        "ClientId": "hills_identity_admin",
+        "ClientName": "hills_identity_admin",
+        "ClientUri": "https://localhost:44303",
+        "AllowedGrantTypes": [
+          "authorization_code"
+        ],
+        "RequirePkce": true,
+        "ClientSecrets": [
+          {
+            "Value": "hills_admin_client_secret"
+          }
+        ],
+        "RedirectUris": [
+          "https://localhost:44303/signin-oidc"
+        ],
+        "FrontChannelLogoutUri": "https://localhost:44303/signout-oidc",
+        "PostLogoutRedirectUris": [
+          "https://localhost:44303/signout-callback-oidc"
+        ],
+        "AllowedCorsOrigins": [
+          "https://localhost:44303"
+        ],
+        "AllowedScopes": [
+          "openid",
+          "email",
+          "profile",
+          "roles"
+        ]
+      },
+      {
+        "ClientId": "angularClient",
+        "ClientName": "angularClient",
+        "UpdateAccessTokenClaimsOnRefresh": true,
+        "AllowedGrantTypes": [
+          "authorization_code"
+        ],
+        "RequirePkce": true,
+        "RedirectUris": [
+          "https://localhost:5001",
+          "http://localhost:4200",
+          "http://localhost:5000"
+        ],
+        "PostLogoutRedirectUris": [
+          "https://localhost:5001",
+          "http://localhost:4200",
+          "http://localhost:5000"
+        ],
+        "AllowedCorsOrigins": [
+          "https://localhost:5001",
+          "http://localhost:4200",
+          "http://localhost:5000"
+        ],
+        "AllowedScopes": [
+          "openid",
+          "email",
+          "profile",
+          "roles",
+          "angularClientApi"
+        ]
+      }
+    ]
+  }
+
+}

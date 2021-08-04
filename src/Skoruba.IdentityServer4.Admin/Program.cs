@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Hills.Extensions.Models;
+using Hills.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +15,7 @@ using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Configuration;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.DbContexts;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers;
+using Skoruba.IdentityServer4.Shared.Configuration.Deploy;
 using Skoruba.IdentityServer4.Shared.Configuration.Helpers;
 
 namespace Skoruba.IdentityServer4.Admin
@@ -30,7 +36,7 @@ namespace Skoruba.IdentityServer4.Admin
             {
                 DockerHelpers.ApplyDockerConfiguration(configuration);
 
-                var host = CreateHostBuilder(args).Build();
+                var host = CreateHostBuilder(args, configuration).Build();
 
                 await ApplyDbMigrationsWithDataSeedAsync(args, configuration, host);
 
@@ -68,11 +74,13 @@ namespace Skoruba.IdentityServer4.Admin
             var isDevelopment = environment == Environments.Development;
 
             var configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(System.AppContext.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
                 .AddJsonFile("serilog.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"serilog.{environment}.json", optional: true, reloadOnChange: true);
+                .AddJsonFile($"serilog.{environment}.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("deploy.appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("deploy.identityserverdata.json", optional: false, reloadOnChange: true);
 
             if (isDevelopment)
             {
@@ -89,7 +97,7 @@ namespace Skoruba.IdentityServer4.Admin
             return configurationBuilder.Build();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        public static IHostBuilder CreateHostBuilder(string[] args, IConfiguration configuration) =>
             Host.CreateDefaultBuilder(args)
                  .ConfigureAppConfiguration((hostContext, configApp) =>
                  {
@@ -97,13 +105,16 @@ namespace Skoruba.IdentityServer4.Admin
 
                      configApp.AddJsonFile("serilog.json", optional: true, reloadOnChange: true);
                      configApp.AddJsonFile("identitydata.json", optional: true, reloadOnChange: true);
-                     configApp.AddJsonFile("identityserverdata.json", optional: true, reloadOnChange: true);
+                     configApp.AddJsonFile("identityserverdata.json", optional: true, reloadOnChange: true);                     
 
                      var env = hostContext.HostingEnvironment;
 
                      configApp.AddJsonFile($"serilog.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
                      configApp.AddJsonFile($"identitydata.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
                      configApp.AddJsonFile($"identityserverdata.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+    
+                     configApp.AddJsonFile("deploy.appsettings.json", optional: true, reloadOnChange: true);
+                     configApp.AddJsonFile("deploy.identityserverdata.json", optional: true, reloadOnChange: true);
 
                      if (env.IsDevelopment())
                      {
@@ -117,14 +128,26 @@ namespace Skoruba.IdentityServer4.Admin
                  })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.ConfigureKestrel(options => options.AddServerHeader = false);
+
+                    var endpointsConfiguration = configuration.GetSection("EndPoints").Get<List<EndPointConfiguration>>();
+                    webBuilder.ConfigureKestrel(endpointsConfiguration);                   
+                    webBuilder.UseKestrel();
+                    webBuilder.UseConfiguration(configuration);
                     webBuilder.UseStartup<Startup>();
                 })
                 .UseSerilog((hostContext, loggerConfig) =>
                 {
+                    //loggerConfig
+                    //    .ReadFrom.Configuration(hostContext.Configuration)
+                    //    .Enrich.WithProperty("ApplicationName", hostContext.HostingEnvironment.ApplicationName);
+
                     loggerConfig
                         .ReadFrom.Configuration(hostContext.Configuration)
+                        .WriteTo.Console(Serilog.Events.LogEventLevel.Information)
+                        .WriteTo.MSSqlServer(configuration.GetConnectionString("SerilogDbConnection"), sinkOptionsSection: hostContext.Configuration.GetSection("SerilogSink"))
                         .Enrich.WithProperty("ApplicationName", hostContext.HostingEnvironment.ApplicationName);
-                });
+
+                })
+            .UseWindowsService();
     }
 }

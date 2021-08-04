@@ -1,0 +1,30 @@
+{
+  "ConnectionStrings": {
+    "ConfigurationDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "PersistedGrantDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "IdentityDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "AdminLogDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "AdminAuditLogDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "DataProtectionDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "SerilogDbConnection": "Server=.\\SQLEXPRESS;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+
+  "AdminConfiguration": {
+    "IdentityAdminBaseUrl": "https://localhost:44303"
+  },
+  "EndPoints": [
+    {
+      "Name": "Default",
+      "IpAddress": "0.0.0.0",
+      "Port": 6000,
+      "UseHttps": false,
+      "Certificate_Type": 2,
+      "Certificate_StoreName": "Root",
+      "Certificate_Subject": "CN=localhost",
+      "Certificate_Id": "Root|CN=localhost",
+      "Address": "https://localhost:6000",
+      "Certificate_Source": "Store:Store: Root, Subject: CN=localhost"
+    }
+  ]
+}
+
