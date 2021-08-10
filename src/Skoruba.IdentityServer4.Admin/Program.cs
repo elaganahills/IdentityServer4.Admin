@@ -36,7 +36,7 @@ namespace Skoruba.IdentityServer4.Admin
             {
                 DockerHelpers.ApplyDockerConfiguration(configuration);
 
-                var host = CreateHostBuilder(args, configuration).Build();
+                var host = CreateHostBuilder(args).Build(); 
 
                 await ApplyDbMigrationsWithDataSeedAsync(args, configuration, host);
 
@@ -97,22 +97,25 @@ namespace Skoruba.IdentityServer4.Admin
             return configurationBuilder.Build();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args, IConfiguration configuration) =>
-            Host.CreateDefaultBuilder(args)
+
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            var configuration = GetConfiguration(args);
+            return Host.CreateDefaultBuilder(args)
                  .ConfigureAppConfiguration((hostContext, configApp) =>
                  {
                      var configurationRoot = configApp.Build();
 
                      configApp.AddJsonFile("serilog.json", optional: true, reloadOnChange: true);
                      configApp.AddJsonFile("identitydata.json", optional: true, reloadOnChange: true);
-                     configApp.AddJsonFile("identityserverdata.json", optional: true, reloadOnChange: true);                     
+                     configApp.AddJsonFile("identityserverdata.json", optional: true, reloadOnChange: true);
 
                      var env = hostContext.HostingEnvironment;
 
                      configApp.AddJsonFile($"serilog.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
                      configApp.AddJsonFile($"identitydata.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
                      configApp.AddJsonFile($"identityserverdata.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
-    
+
                      configApp.AddJsonFile("deploy.appsettings.json", optional: true, reloadOnChange: true);
                      configApp.AddJsonFile("deploy.identityserverdata.json", optional: true, reloadOnChange: true);
 
@@ -128,26 +131,22 @@ namespace Skoruba.IdentityServer4.Admin
                  })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-
                     var endpointsConfiguration = configuration.GetSection("EndPoints").Get<List<EndPointConfiguration>>();
-                    webBuilder.ConfigureKestrel(endpointsConfiguration);                   
+                    webBuilder.ConfigureKestrel(endpointsConfiguration);
                     webBuilder.UseKestrel();
                     webBuilder.UseConfiguration(configuration);
                     webBuilder.UseStartup<Startup>();
+                    
                 })
                 .UseSerilog((hostContext, loggerConfig) =>
                 {
-                    //loggerConfig
-                    //    .ReadFrom.Configuration(hostContext.Configuration)
-                    //    .Enrich.WithProperty("ApplicationName", hostContext.HostingEnvironment.ApplicationName);
-
                     loggerConfig
-                        .ReadFrom.Configuration(hostContext.Configuration)
-                        .WriteTo.Console(Serilog.Events.LogEventLevel.Information)
-                        .WriteTo.MSSqlServer(configuration.GetConnectionString("SerilogDbConnection"), sinkOptionsSection: hostContext.Configuration.GetSection("SerilogSink"))
-                        .Enrich.WithProperty("ApplicationName", hostContext.HostingEnvironment.ApplicationName);
-
+                    .ReadFrom.Configuration(hostContext.Configuration)
+                    .WriteTo.Console(Serilog.Events.LogEventLevel.Information)
+                    .WriteTo.MSSqlServer(configuration.GetConnectionString("SerilogDbConnection"), sinkOptionsSection: hostContext.Configuration.GetSection("SerilogSink"))
+                    .Enrich.WithProperty("ApplicationName", hostContext.HostingEnvironment.ApplicationName);
                 })
             .UseWindowsService();
+        }
     }
 }

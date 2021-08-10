@@ -38,9 +38,9 @@ namespace Skoruba.IdentityServer4.STS.Identity.Controllers
         where TUser : IdentityUser<TKey>, new()
         where TKey : IEquatable<TKey>
     {
-        private readonly UserResolver<TUser> _userResolver;
+        private readonly IUserResolver<TUser> _userResolver;
         private readonly UserManager<TUser> _userManager;
-        private readonly ApplicationSignInManager<TUser> _signInManager;
+        private readonly IApplicationSignInManager<TUser> _signInManager;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
@@ -53,9 +53,9 @@ namespace Skoruba.IdentityServer4.STS.Identity.Controllers
         private readonly ILogger<AccountController<TUser, TKey>> _logger;
 
         public AccountController(
-            UserResolver<TUser> userResolver,
+            IUserResolver<TUser> userResolver,
             UserManager<TUser> userManager,
-            ApplicationSignInManager<TUser> signInManager,
+            IApplicationSignInManager<TUser> signInManager,
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,

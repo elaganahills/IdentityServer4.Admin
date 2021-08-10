@@ -14,9 +14,9 @@ namespace Hills.IdentityServer4.Deployment
 
     
 
-    public partial class Step03_EndPoints : Step
+    public partial class Step04_EndPoints : Step
     {
-        public Step03_EndPoints()
+        public Step04_EndPoints()
         {
             InitializeComponent();
 
@@ -40,7 +40,7 @@ namespace Hills.IdentityServer4.Deployment
             {
 
                 //close current form and open next
-                new Step04_PreConfiguredServices().Show();
+                new Step05_PreConfiguredServices().Show();
                 this.Close(false);
             }
             catch (Exception ex)
@@ -52,7 +52,7 @@ namespace Hills.IdentityServer4.Deployment
         public override void cmdPrevious_Click(object sender, EventArgs e)
         {
             //close current form and open previous
-            new Step02_SqlConnection().Show();
+            new Step03_ActiveDirectory().Show();
             this.Close(false);
         }
 

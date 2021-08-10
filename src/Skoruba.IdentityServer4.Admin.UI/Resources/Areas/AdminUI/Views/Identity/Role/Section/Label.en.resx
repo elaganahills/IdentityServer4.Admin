@@ -123,6 +123,12 @@
   <data name="RoleName_Label" xml:space="preserve">
     <value>Role Name</value>
   </data>
+  <data name="ActiveDirectoryRole_Info" xml:space="preserve">
+    <value>Name of the role</value>
+  </data>  
+  <data name="ActiveDirectoryRole_Label" xml:space="preserve">
+    <value>Active Directory Role</value>
+  </data>
   <data name="Type_Info" xml:space="preserve">
     <value />
   </data>

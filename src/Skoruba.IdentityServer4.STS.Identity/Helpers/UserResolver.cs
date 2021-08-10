@@ -4,7 +4,7 @@ using Skoruba.IdentityServer4.Shared.Configuration.Configuration.Identity;
 
 namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 {
-    public class UserResolver<TUser> where TUser : class
+    public class UserResolver<TUser> : IUserResolver<TUser> where TUser : class
     {
         private readonly UserManager<TUser> _userManager;
         private readonly LoginResolutionPolicy _policy;

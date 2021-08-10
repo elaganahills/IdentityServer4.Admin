@@ -17,9 +17,9 @@ using is4models = IdentityServer4.Models;
 
 namespace Hills.IdentityServer4.Deployment
 {
-    public partial class Step05_Configuration : Step
+    public partial class Step06_Configuration : Step
     {
-        public Step05_Configuration()
+        public Step06_Configuration()
         {
             InitializeComponent();
 
@@ -335,6 +335,7 @@ namespace Hills.IdentityServer4.Deployment
                 deployadmin.AdminConfiguration.IdentityAdminRedirectUri = Program.EndPointsAdmin.FirstOrDefault().Address + @"/signin-oidc";
                 deployadmin.AdminConfiguration.IdentityServerBaseUrl = Program.EndPoints.FirstOrDefault().Address;
                 deployadmin.EndPoints = Program.EndPointsAdmin;
+                deployadmin.ActiveDirectoryConfiguration = Program.ActiveDirectoryConfiguration;
 
                 using (StreamWriter file = new StreamWriter(Helper.GetIdentityServer4AdminAppSettingsFilePath(), false))
                     new JsonSerializer() { NullValueHandling = NullValueHandling.Ignore }.Serialize(file, deployadmin);
@@ -349,6 +350,7 @@ namespace Hills.IdentityServer4.Deployment
                 deployid.AdminConfiguration = new  AdminConfiguration();
                 deployid.AdminConfiguration.IdentityAdminBaseUrl = Program.EndPointsAdmin.FirstOrDefault().Address;
                 deployid.EndPoints = Program.EndPoints;
+                deployid.ActiveDirectoryConfiguration = Program.ActiveDirectoryConfiguration;
 
                 using (StreamWriter file = new StreamWriter(Helper.GetIdentityServer4AppSettingsFilePath(), false))
                     new JsonSerializer() { NullValueHandling = NullValueHandling.Ignore }.Serialize(file, deployid);
@@ -367,7 +369,7 @@ namespace Hills.IdentityServer4.Deployment
         public override void cmdNext_Click(object sender, EventArgs e)
         {
             //close current form and open previous
-            new Step06_End().Show();
+            new Step07_End().Show();
             this.Close(false);
         }
 
@@ -377,7 +379,7 @@ namespace Hills.IdentityServer4.Deployment
             {
 
                 //close current form and open next
-                new Step04_PreConfiguredServices().Show();
+                new Step05_PreConfiguredServices().Show();
                 this.Close(false);
             }
             catch (Exception ex)

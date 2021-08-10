@@ -10,14 +10,14 @@
   },
   "AdminConfiguration": {
     "IdentityAdminRedirectUri": "https://localhost:44303/signin-oidc",
-    "IdentityServerBaseUrl": "https://localhost:44310",
-    "ClientSecret": "hills_admin_client_secret",    
+    "IdentityServerBaseUrl": "https://localhost:6011",
+    "ClientSecret": "hills_admin_client_secret"
   },
   "EndPoints": [
     {
       "Name": "dafault",
       "IpAddress": "127.0.0.1",
-      "Port": 44304,
+      "Port": 44303,
       "UseHttps": true,
       "Certificate_Type": "File",
       "Certificate_StoreName": "Root",

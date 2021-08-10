@@ -15,9 +15,9 @@ using System.Windows.Forms;
 
 namespace Hills.IdentityServer4.Deployment
 {
-    public partial class Step04_PreConfiguredServices : Step
+    public partial class Step05_PreConfiguredServices : Step
     {
-        public Step04_PreConfiguredServices()
+        public Step05_PreConfiguredServices()
         {
             InitializeComponent();
 
@@ -86,7 +86,7 @@ namespace Hills.IdentityServer4.Deployment
             {
 
                 //close current form and open next
-                new Step05_Configuration().Show();
+                new Step06_Configuration().Show();
                 this.Close(false);
             }
             catch (Exception ex)
@@ -98,7 +98,7 @@ namespace Hills.IdentityServer4.Deployment
         public override void cmdPrevious_Click(object sender, EventArgs e)
         {
             //close current form and open previous
-            new Step03_EndPoints().Show();
+            new Step04_EndPoints().Show();
             this.Close(false);
         }
     }

@@ -12,4 +12,9 @@
 
         public string CustomThemeCss { get; set; }
     }
+    public class OtherConfiguration
+    {
+        public string PageSubTitle { get; set; }
+        
+    }
 }

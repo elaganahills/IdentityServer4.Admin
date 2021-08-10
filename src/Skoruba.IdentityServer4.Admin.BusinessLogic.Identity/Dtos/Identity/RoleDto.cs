@@ -8,5 +8,9 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity
     {      
         [Required]
         public string Name { get; set; }
+
+        public string ActiveDirectoryRole { get; set; }
+
+
     }
 }

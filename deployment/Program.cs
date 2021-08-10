@@ -11,6 +11,7 @@ using Hills.Extensions.Models;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Hills.Extensions;
+using Skoruba.IdentityServer4.Shared.Configuration.Configuration;
 
 namespace Hills.IdentityServer4.Deployment
 {
@@ -78,6 +79,8 @@ namespace Hills.IdentityServer4.Deployment
         public static List<Client> Clients = new List<Client>();
         public static List<EndPointConfiguration> EndPoints = new List<EndPointConfiguration>();
         public static List<EndPointConfiguration> EndPointsAdmin = new List<EndPointConfiguration>();
+
+        public static ActiveDirectoryConfiguration ActiveDirectoryConfiguration { get; set; }
 
         public static SqlConnectionInfo SqlConnection { get; set; }
         public static SqlConnectionInfo SqlConnection_ConfigOnly { get; set; }

@@ -14,5 +14,6 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Configurat
         public ConnectionStringsConfiguration ConnectionStrings { get; set; }
         public AdminConfigurationDeploy AdminConfiguration { get; set; }
         public List<EndPointConfiguration> EndPoints { get; set; }
+        public ActiveDirectoryConfiguration ActiveDirectoryConfiguration { get; set; }
     }
 }

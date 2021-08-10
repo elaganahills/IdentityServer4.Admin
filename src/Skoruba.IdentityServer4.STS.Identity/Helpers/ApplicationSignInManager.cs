@@ -17,8 +17,7 @@ using System.Threading.Tasks;
 
 namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 {
-    public class ApplicationSignInManager<TUser> : SignInManager<TUser>
-        where TUser : class
+    public class ApplicationSignInManager<TUser> : SignInManager<TUser>, IApplicationSignInManager<TUser> where TUser : class
     {
         private readonly IHttpContextAccessor _contextAccessor;
 

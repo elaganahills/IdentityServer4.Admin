@@ -3,5 +3,7 @@
     public interface IRoleDto : IBaseRoleDto
     {
         string Name { get; set; }
+
+        string ActiveDirectoryRole { get; set; }
     }
 }

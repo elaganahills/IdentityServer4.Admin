@@ -13,6 +13,9 @@ using Skoruba.IdentityServer4.STS.Identity.Configuration.Interfaces;
 using Skoruba.IdentityServer4.STS.Identity.Helpers;
 using System;
 using Skoruba.IdentityServer4.Shared.Configuration.Helpers;
+using Skoruba.IdentityServer4.STS.Identity.Services;
+using Microsoft.AspNetCore.Identity;
+using IdentityServer4.Services;
 
 namespace Skoruba.IdentityServer4.STS.Identity
 {
@@ -55,6 +58,7 @@ namespace Skoruba.IdentityServer4.STS.Identity
             RegisterAuthorization(services);
 
             services.AddIdSHealthChecks<IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, AdminIdentityDbContext, IdentityServerDataProtectionDbContext>(Configuration);
+            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -98,6 +102,7 @@ namespace Skoruba.IdentityServer4.STS.Identity
 
         public virtual void RegisterAuthentication(IServiceCollection services)
         {
+
             services.AddAuthenticationServices<AdminIdentityDbContext, UserIdentity, UserIdentityRole>(Configuration);
             services.AddIdentityServer<IdentityServerConfigurationDbContext, IdentityServerPersistedGrantDbContext, UserIdentity>(Configuration);
         }
@@ -128,6 +133,13 @@ namespace Skoruba.IdentityServer4.STS.Identity
             var rootConfiguration = new RootConfiguration();
             Configuration.GetSection(ConfigurationConsts.AdminConfigurationKey).Bind(rootConfiguration.AdminConfiguration);
             Configuration.GetSection(ConfigurationConsts.RegisterConfigurationKey).Bind(rootConfiguration.RegisterConfiguration);
+            Configuration.GetSection(ConfigurationConsts.ActiveDirectoryConfigurationKey).Bind(rootConfiguration.ActiveDirectoryConfiguration);
+
+            if (rootConfiguration.ActiveDirectoryConfiguration.Enabled)
+                rootConfiguration.OtherConfiguration.PageSubTitle = "Active Directory Integration Mode";
+            else
+                rootConfiguration.OtherConfiguration.PageSubTitle = "Self Contained Mode";
+
             return rootConfiguration;
         }
     }

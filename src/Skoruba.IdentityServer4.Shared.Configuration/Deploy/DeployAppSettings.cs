@@ -13,5 +13,7 @@ namespace Skoruba.IdentityServer4.Shared.Configuration.Deploy
         public ConnectionStringsConfiguration ConnectionStrings { get; set; }
         public AdminConfiguration AdminConfiguration { get; set; }
         public List<EndPointConfiguration> EndPoints { get; set; }
+
+        public ActiveDirectoryConfiguration ActiveDirectoryConfiguration { get; set; }
     }
 }

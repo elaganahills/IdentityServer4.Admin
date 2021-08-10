@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Hills.IdentityServer4.Deployment
 {
-    public partial class Step06_End : Step
+    public partial class Step07_End : Step
     {
-        public Step06_End()
+        public Step07_End()
         {
             InitializeComponent();
         }

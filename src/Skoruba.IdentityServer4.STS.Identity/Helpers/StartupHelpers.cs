@@ -30,6 +30,9 @@ using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.PostgreSQL;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.SqlServer;
 using Skoruba.IdentityServer4.Shared.Configuration.Authentication;
 using Skoruba.IdentityServer4.Shared.Configuration.Configuration.Identity;
+using Skoruba.IdentityServer4.STS.Identity.Services;
+using IdentityServer4.Services;
+using Skoruba.IdentityServer4.Shared.Configuration.Configuration;
 
 namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 {
@@ -242,14 +245,26 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
             var loginConfiguration = GetLoginConfiguration(configuration);
             var registrationConfiguration = GetRegistrationConfiguration(configuration);
             var identityOptions = configuration.GetSection(nameof(IdentityOptions)).Get<IdentityOptions>();
+            var adConfiguration = GetActiveDirectoryConfiguration(configuration);
 
             services
                 .AddSingleton(registrationConfiguration)
                 .AddSingleton(loginConfiguration)
-                .AddSingleton(identityOptions)
-                .AddScoped<ApplicationSignInManager<TUserIdentity>>()
-                .AddScoped<UserResolver<TUserIdentity>>()
-                .AddIdentity<TUserIdentity, TUserIdentityRole>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
+                .AddSingleton(identityOptions);
+
+            if (adConfiguration.Enabled)
+            {
+                services.AddTransient<IActiveDirectoryService, ActiveDirectoryService>()                    
+                    .AddScoped<IUserResolver<TUserIdentity>, UserResolverAd<TUserIdentity>>()
+                    .AddScoped<IApplicationSignInManager<TUserIdentity>, ActiveDirectorySignInManager<TUserIdentity>>();
+            }
+            else
+            {
+                services.AddScoped< IApplicationSignInManager<TUserIdentity> , ApplicationSignInManager <TUserIdentity>>()
+                    .AddScoped<IUserResolver<TUserIdentity>, UserResolver<TUserIdentity>>();
+            }
+
+            services.AddIdentity<TUserIdentity, TUserIdentityRole>(options => configuration.GetSection(nameof(IdentityOptions)).Bind(options))
                 .AddEntityFrameworkStores<TIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -291,6 +306,20 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 
             return loginConfiguration;
         }
+        
+        private static ActiveDirectoryConfiguration GetActiveDirectoryConfiguration(IConfiguration configuration)
+        {
+            var adConfiguration = configuration.GetSection(nameof(ActiveDirectoryConfiguration)).Get<ActiveDirectoryConfiguration>();
+
+            // Cannot load configuration - use default configuration values
+            if (adConfiguration == null)
+            {
+                return new ActiveDirectoryConfiguration();
+            }
+
+            return adConfiguration;
+        }
+
 
         /// <summary>
         /// Get configuration for registration
@@ -326,6 +355,7 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
             where TUserIdentity : class
         {
             var advancedConfiguration = configuration.GetSection(nameof(AdvancedConfiguration)).Get<AdvancedConfiguration>();
+            var adConfiguration = GetActiveDirectoryConfiguration(configuration);
 
             var builder = services.AddIdentityServer(options =>
                 {
@@ -346,6 +376,9 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
             builder.AddCustomSigningCredential(configuration);
             builder.AddCustomValidationKey(configuration);
             builder.AddExtensionGrantValidator<DelegationGrantValidator>();
+
+            if (adConfiguration.Enabled)
+                services.AddTransient<IProfileService, ProfileService>();
 
             return builder;
         }

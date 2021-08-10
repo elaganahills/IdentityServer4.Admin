@@ -10,7 +10,8 @@ namespace Skoruba.IdentityServer4.Shared.Configuration.Helpers
 
         public static ICollection<string> GetThemes()
         {
-            var themes = new List<string> { DefaultTheme, "darkly", "cosmo", "cerulean", "cyborg", "flatly", "journal", "litera", "lumen", "lux", "materia", "minty", "pulse", "sandstone", "simplex", "sketchy", "slate", "solar", "spacelab", "superhero", "united", "yeti" };
+            //var themes = new List<string> { DefaultTheme, "darkly", "cosmo", "cerulean", "cyborg", "flatly", "journal", "litera", "lumen", "lux", "materia", "minty", "pulse", "sandstone", "simplex", "sketchy", "slate", "solar", "spacelab", "superhero", "united", "yeti" };
+            var themes = new List<string> { DefaultTheme };
 
             return themes;
         }

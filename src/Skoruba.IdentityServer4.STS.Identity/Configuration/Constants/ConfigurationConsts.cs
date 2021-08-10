@@ -18,6 +18,8 @@
 
         public const string RegisterConfigurationKey = "RegisterConfiguration";
 
+        public const string ActiveDirectoryConfigurationKey = "ActiveDirectoryConfiguration";
+
         public const string AdvancedConfigurationKey = "AdvancedConfiguration";
 
         public const string CspTrustedDomainsKey = "CspTrustedDomains";

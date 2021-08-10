@@ -39,7 +39,7 @@ namespace Hills.IdentityServer4.Deployment
 
 
                 //close current form and open next
-                new Step03_EndPoints().Show();
+                new Step03_ActiveDirectory().Show();
                 this.Close(false);
             }
             catch (Exception ex)
