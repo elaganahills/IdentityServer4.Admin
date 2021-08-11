@@ -9,6 +9,7 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <DockerfileContext>..\..</DockerfileContext>
         <AssemblyName>Hills.IdentityServer4.STS.Identity</AssemblyName>
+        <RootNamespace>Hills.IdentityServer4.STS.Identity</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
