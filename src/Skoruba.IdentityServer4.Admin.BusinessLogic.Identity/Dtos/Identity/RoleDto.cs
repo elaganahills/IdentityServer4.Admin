@@ -11,6 +11,5 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity
 
         public string ActiveDirectoryRole { get; set; }
 
-
     }
 }

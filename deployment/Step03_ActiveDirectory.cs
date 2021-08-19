@@ -19,18 +19,28 @@ namespace Hills.IdentityServer4.Deployment
         {
             InitializeComponent();
 
-            EnableNext = false;
+            EnableNext = true;
         }
 
         private void Step03_ActiveDirectory_Load(object sender, EventArgs e)
         {
-
+#if DEBUG
+            txtServer.Text = "lan1hq.com.au";
+            txtUsername.Text = "manny";
+            txtPassword.Text = "Hills2020!";
+            txtTestUsername.Text = "manny";
+            txtTestPassword.Text = "Hills2020!";
+            txtIdentityServerAdminRole.Text = "Account Manger";
+#endif
         }
 
         public override void cmdNext_Click(object sender, EventArgs e)
         {
             try
             {
+                if (string.IsNullOrEmpty(txtIdentityServerAdminRole.Text))
+                    throw new Exception("IdentityServer Admin Role is required.");
+
                 //Save Sql Info
                 Program.ActiveDirectoryConfiguration = new ActiveDirectoryConfiguration()
                 {
@@ -43,7 +53,8 @@ namespace Hills.IdentityServer4.Deployment
                     WindowsAutentiction = chkWindowsAutentiction.Checked,
                     LoadAtributes = chkLoadAtributes.Checked,
                     AtributesStartFilter = txtAtributesStartFilter.Text,
-                    HHSOID = txtHHSOID.Text
+                    HHSOID = txtHHSOID.Text,
+                    IdentityServerAdminRole = txtIdentityServerAdminRole.Text
                 };
 
                 //close current form and open next
@@ -80,6 +91,14 @@ namespace Hills.IdentityServer4.Deployment
             {
                 EnableNext = true;
             }
+        }
+
+        private void chkEnable_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkEnable.Checked)
+                EnableNext = false;
+            else
+                EnableNext = true;
         }
     }
 }

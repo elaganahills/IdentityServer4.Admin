@@ -17,5 +17,6 @@ namespace Skoruba.IdentityServer4.Shared.Configuration.Configuration
         public bool LoadAtributes { get; set; }
         public string AtributesStartFilter { get; set; }
         public int Port { get; set; }
+        public string IdentityServerAdminRole { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Hills.Extensions.Models;
 using Skoruba.IdentityServer4.Shared.Configuration.Configuration;
+using Skoruba.IdentityServer4.Shared.Configuration.Configuration.Identity;
 using Skoruba.IdentityServer4.Shared.Configuration.Deploy;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,6 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Configurat
         public AdminConfigurationDeploy AdminConfiguration { get; set; }
         public List<EndPointConfiguration> EndPoints { get; set; }
         public ActiveDirectoryConfiguration ActiveDirectoryConfiguration { get; set; }
+
     }
 }

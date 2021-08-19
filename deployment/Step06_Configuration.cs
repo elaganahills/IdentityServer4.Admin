@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Configuration;
 using Skoruba.IdentityServer4.Shared.Configuration.Configuration;
+using Skoruba.IdentityServer4.Shared.Configuration.Configuration.Identity;
 using Skoruba.IdentityServer4.Shared.Configuration.Deploy;
 using System;
 using System.Collections.Generic;
@@ -57,13 +58,15 @@ namespace Hills.IdentityServer4.Deployment
                 return;
 
             if (!InstallService())
-                return;
+                return;           
 
             if (!InstallServiceAdmin())
                 return;
 
             if (!StartService())
                 return;
+
+            System.Threading.Thread.Sleep(5000);
 
             if (!StartServiceAdmin())
                 return;
@@ -166,7 +169,17 @@ namespace Hills.IdentityServer4.Deployment
             try
             {
                 if (!PowerShellHelper.RunService("Hills.IdentityServer4.Admin"))
-                    throw new Exception("Powershell error");
+                {
+                    System.Threading.Thread.Sleep(5000);
+                    if (!PowerShellHelper.RunService("Hills.IdentityServer4.Admin"))
+                    {
+                        System.Threading.Thread.Sleep(5000);
+                        if (!PowerShellHelper.RunService("Hills.IdentityServer4.Admin"))
+                        {
+                            throw new Exception("Powershell error");
+                        }
+                    }
+                }
 
                 taskStartServiceAdmin.Set(ucTaskResult.Statuses.Good, "Operation completed succesfully");
                 return true;
@@ -183,7 +196,18 @@ namespace Hills.IdentityServer4.Deployment
             try
             {
                 if (!PowerShellHelper.RunService("Hills.IdentityServer4"))
-                    throw new Exception("Powershell error");
+                {
+                    System.Threading.Thread.Sleep(5000);
+                    if (!PowerShellHelper.RunService("Hills.IdentityServer4"))
+                    {
+                        System.Threading.Thread.Sleep(5000);
+                        if (!PowerShellHelper.RunService("Hills.IdentityServer4"))
+                        {
+                            throw new Exception("Powershell error");
+                        }
+                    }
+                }
+                    
 
                 taskStartService.Set(ucTaskResult.Statuses.Good, "Operation completed succesfully");
                 return true;
@@ -316,6 +340,19 @@ namespace Hills.IdentityServer4.Deployment
 
                     }
                 }
+                isdc.IdentityData = new IdentityDataConfiguration();
+                isdc.IdentityData.Roles = new List<UserIdentityRoleConfiguration>();
+                isdc.IdentityData.Roles.Add(new UserIdentityRoleConfiguration() { Name = "Administrator" });
+                isdc.IdentityData.Roles.Add(new UserIdentityRoleConfiguration() { Name = "Supervisor" });
+                isdc.IdentityData.Roles.Add(new UserIdentityRoleConfiguration() { Name = "User" });
+                if (Program.ActiveDirectoryConfiguration != null && Program.ActiveDirectoryConfiguration.Enabled)
+                {
+                    //admin role required
+                    isdc.IdentityData.Roles.Add(new UserIdentityRoleConfiguration() { Name = "HillsIdentityAdminAdministrator", ActiveDirectoryRole = Program.ActiveDirectoryConfiguration.IdentityServerAdminRole });
+                } else
+                {
+                    isdc.IdentityData.Roles.Add(new UserIdentityRoleConfiguration() { Name = "HillsIdentityAdminAdministrator" });
+                }
 
                 // save client also to local file
                 using (StreamWriter file = new StreamWriter(Helper.GetProjectFilePath(@"deploy.identityserverdata.json"), false))
@@ -336,6 +373,7 @@ namespace Hills.IdentityServer4.Deployment
                 deployadmin.AdminConfiguration.IdentityServerBaseUrl = Program.EndPoints.FirstOrDefault().Address;
                 deployadmin.EndPoints = Program.EndPointsAdmin;
                 deployadmin.ActiveDirectoryConfiguration = Program.ActiveDirectoryConfiguration;
+       
 
                 using (StreamWriter file = new StreamWriter(Helper.GetIdentityServer4AdminAppSettingsFilePath(), false))
                     new JsonSerializer() { NullValueHandling = NullValueHandling.Ignore }.Serialize(file, deployadmin);

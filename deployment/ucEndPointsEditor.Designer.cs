@@ -40,6 +40,7 @@ namespace Hills.IdentityServer4.Deployment
             this.colHttps = new System.Windows.Forms.ColumnHeader();
             this.colCertType = new System.Windows.Forms.ColumnHeader();
             this.colCertFileName = new System.Windows.Forms.ColumnHeader();
+            this.colValidity = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // lnkRemove
@@ -98,7 +99,8 @@ namespace Hills.IdentityServer4.Deployment
             this.colPort,
             this.colHttps,
             this.colCertType,
-            this.colCertFileName});
+            this.colCertFileName,
+            this.colValidity});
             this.lstEndPoints.FullRowSelect = true;
             this.lstEndPoints.HideSelection = false;
             this.lstEndPoints.Location = new System.Drawing.Point(3, 18);
@@ -136,6 +138,10 @@ namespace Hills.IdentityServer4.Deployment
             this.colCertFileName.Text = "Cert Source";
             this.colCertFileName.Width = 300;
             // 
+            // colValidity
+            // 
+            this.colValidity.Text = "Validity";
+            // 
             // ucEndPointsEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -165,5 +171,6 @@ namespace Hills.IdentityServer4.Deployment
         private System.Windows.Forms.ColumnHeader colHttps;
         private System.Windows.Forms.ColumnHeader colCertType;
         private System.Windows.Forms.ColumnHeader colCertFileName;
+        private System.Windows.Forms.ColumnHeader colValidity;
     }
 }

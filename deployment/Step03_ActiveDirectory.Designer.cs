@@ -55,6 +55,8 @@ namespace Hills.IdentityServer4.Deployment
             this.label12 = new System.Windows.Forms.Label();
             this.txtTestPassword = new System.Windows.Forms.TextBox();
             this.txtTestUsername = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtIdentityServerAdminRole = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,6 +124,7 @@ namespace Hills.IdentityServer4.Deployment
             this.chkEnable.Size = new System.Drawing.Size(104, 23);
             this.chkEnable.TabIndex = 0;
             this.chkEnable.UseVisualStyleBackColor = true;
+            this.chkEnable.CheckedChanged += new System.EventHandler(this.chkEnable_CheckedChanged);
             // 
             // chkWindowsAutentiction
             // 
@@ -207,7 +210,7 @@ namespace Hills.IdentityServer4.Deployment
             // 
             // cmdTestConnection
             // 
-            this.cmdTestConnection.Location = new System.Drawing.Point(466, 503);
+            this.cmdTestConnection.Location = new System.Drawing.Point(466, 543);
             this.cmdTestConnection.Name = "cmdTestConnection";
             this.cmdTestConnection.Size = new System.Drawing.Size(139, 23);
             this.cmdTestConnection.TabIndex = 12;
@@ -238,7 +241,7 @@ namespace Hills.IdentityServer4.Deployment
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.txtTestPassword);
             this.groupBox1.Controls.Add(this.txtTestUsername);
-            this.groupBox1.Location = new System.Drawing.Point(53, 402);
+            this.groupBox1.Location = new System.Drawing.Point(53, 442);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(552, 95);
             this.groupBox1.TabIndex = 25;
@@ -277,10 +280,28 @@ namespace Hills.IdentityServer4.Deployment
             this.txtTestUsername.Size = new System.Drawing.Size(196, 23);
             this.txtTestUsername.TabIndex = 10;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(33, 405);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(142, 15);
+            this.label13.TabIndex = 27;
+            this.label13.Text = "Identity Server admin role";
+            // 
+            // txtIdentityServerAdminRole
+            // 
+            this.txtIdentityServerAdminRole.Location = new System.Drawing.Point(181, 402);
+            this.txtIdentityServerAdminRole.Name = "txtIdentityServerAdminRole";
+            this.txtIdentityServerAdminRole.Size = new System.Drawing.Size(424, 23);
+            this.txtIdentityServerAdminRole.TabIndex = 26;
+            // 
             // Step03_ActiveDirectory
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(884, 661);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.txtIdentityServerAdminRole);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtPort);
@@ -332,6 +353,8 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.SetChildIndex(this.txtPort, 0);
             this.Controls.SetChildIndex(this.label10, 0);
             this.Controls.SetChildIndex(this.groupBox1, 0);
+            this.Controls.SetChildIndex(this.txtIdentityServerAdminRole, 0);
+            this.Controls.SetChildIndex(this.label13, 0);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -366,5 +389,7 @@ namespace Hills.IdentityServer4.Deployment
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtTestPassword;
         private System.Windows.Forms.TextBox txtTestUsername;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtIdentityServerAdminRole;
     }
 }

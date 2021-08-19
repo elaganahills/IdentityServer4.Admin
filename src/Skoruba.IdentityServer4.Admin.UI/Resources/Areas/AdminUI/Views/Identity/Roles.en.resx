@@ -132,4 +132,7 @@
   <data name="TableName" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="ActiveDirectoryRole" xml:space="preserve">
+    <value>Active Directory Name</value>
+  </data>  
 </root>

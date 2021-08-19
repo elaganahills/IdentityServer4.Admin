@@ -58,7 +58,14 @@ namespace Hills.IdentityServer4.Deployment
 
         private void ucEndPointsEditor_OnUpdateStatus(object sender, InfoEventArrgs e)
         {
-            EnableNext = ucEndPointsEditor.EndPointsCount > 0 && ucEndPointsEditorAdmin.EndPointsCount > 0;
+            EnableNext = ucEndPointsEditor.ValidEndPointsCount > 0 && ucEndPointsEditorAdmin.ValidEndPointsCount > 0;
+        }
+
+        private void lnkCertificateTool_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new CertificateTool().ShowDialog();
+            ucEndPointsEditor.UpdateTable();
+            ucEndPointsEditorAdmin.UpdateTable();
         }
     }
 }

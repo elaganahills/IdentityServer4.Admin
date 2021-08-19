@@ -1,4 +1,4 @@
-;Include Modern UI
+﻿;Include Modern UI
   !include "MUI2.nsh"
  
 ;--------------------------------
@@ -13,7 +13,7 @@
  ; Name
 !define PRODUCT_NAME "Hills.IdentityServer"
  ; Version
-!define PRODUCT_VERSION "0.0.2"
+!define PRODUCT_VERSION "0.0.5"
  ; Installation icon path
 ;!define INSTALL_ICON "logo.ico"
  ; Uninstall icon path

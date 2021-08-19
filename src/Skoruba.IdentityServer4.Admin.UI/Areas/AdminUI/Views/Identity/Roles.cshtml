@@ -35,6 +35,7 @@
                     <tr>
                         <th></th>
                         <th>@Localizer["TableName"]</th>
+                        <th>@Localizer["ActiveDirectoryRole"]</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -47,6 +48,7 @@
                                 <a asp-area="@CommonConsts.AdminUIArea" class="btn btn-primary" asp-action="RoleUsers" asp-route-id="@role.Id">@Localizer["TableButtonUsers"]</a>
                             </th>
                             <td>@role.Name</td>
+                            <td>@role.ActiveDirectoryRole</td>
                             <td>
                                 <a asp-area="@CommonConsts.AdminUIArea" class="btn btn-danger" asp-action="RoleDelete" asp-route-id="@role.Id"><span class="oi oi-x"></span></a>
                             </td>

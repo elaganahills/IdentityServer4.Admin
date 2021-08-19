@@ -2,67 +2,275 @@
   "IdentityServerData": {
     "Clients": [
       {
+        "ClientClaims": [],
+        "Enabled": true,
         "ClientId": "hills_identity_admin",
-        "ClientName": "hills_identity_admin",
-        "ClientUri": "https://localhost:44303",
-        "AllowedGrantTypes": [
-          "authorization_code"
-        ],
-        "RequirePkce": true,
+        "ProtocolType": "oidc",
         "ClientSecrets": [
           {
-            "Value": "hills_admin_client_secret"
+            "Value": "hills_admin_client_secret",
+            "Type": "SharedSecret"
           }
         ],
-        "RedirectUris": [
-          "https://localhost:44303/signin-oidc"
-        ],
-        "FrontChannelLogoutUri": "https://localhost:44303/signout-oidc",
-        "PostLogoutRedirectUris": [
-          "https://localhost:44303/signout-callback-oidc"
-        ],
-        "AllowedCorsOrigins": [
-          "https://localhost:44303"
-        ],
-        "AllowedScopes": [
-          "openid",
-          "email",
-          "profile",
-          "roles"
-        ]
+        "RequireClientSecret": true,
+        "ClientName": "hills_identity_admin",
+        "ClientUri": "https://localhost:6011",
+        "RequireConsent": false,
+        "AllowRememberConsent": true,
+        "AllowedGrantTypes": [ "authorization_code" ],
+        "RequirePkce": true,
+        "AllowPlainTextPkce": false,
+        "RequireRequestObject": false,
+        "AllowAccessTokensViaBrowser": false,
+        "RedirectUris": [ "https://localhost:6011/signin-oidc" ],
+        "PostLogoutRedirectUris": [ "https://localhost:6011/signout-callback-oidc" ],
+        "FrontChannelLogoutUri": "https://localhost:6011/signout-oidc",
+        "FrontChannelLogoutSessionRequired": true,
+        "BackChannelLogoutSessionRequired": true,
+        "AllowOfflineAccess": false,
+        "AllowedScopes": [ "openid", "email", "profile", "roles" ],
+        "AlwaysIncludeUserClaimsInIdToken": false,
+        "IdentityTokenLifetime": 300,
+        "AllowedIdentityTokenSigningAlgorithms": [],
+        "AccessTokenLifetime": 3600,
+        "AuthorizationCodeLifetime": 300,
+        "AbsoluteRefreshTokenLifetime": 2592000,
+        "SlidingRefreshTokenLifetime": 1296000,
+        "RefreshTokenUsage": 1,
+        "UpdateAccessTokenClaimsOnRefresh": false,
+        "RefreshTokenExpiration": 1,
+        "AccessTokenType": 0,
+        "EnableLocalLogin": true,
+        "IdentityProviderRestrictions": [],
+        "IncludeJwtId": true,
+        "Claims": [],
+        "AlwaysSendClientClaims": false,
+        "ClientClaimsPrefix": "client_",
+        "DeviceCodeLifetime": 300,
+        "AllowedCorsOrigins": [ "https://localhost:6011" ],
+        "Properties": {}
       },
       {
+        "ClientClaims": [],
+        "Enabled": true,
         "ClientId": "angularClient",
+        "ProtocolType": "oidc",
+        "ClientSecrets": [],
+        "RequireClientSecret": false,
         "ClientName": "angularClient",
-        "UpdateAccessTokenClaimsOnRefresh": true,
-        "AllowedGrantTypes": [
-          "authorization_code"
-        ],
+        "RequireConsent": false,
+        "AllowRememberConsent": true,
+        "AllowedGrantTypes": [ "authorization_code" ],
         "RequirePkce": true,
-        "RedirectUris": [
-          "https://localhost:5001",
-          "http://localhost:4200",
-          "http://localhost:5000"
-        ],
-        "PostLogoutRedirectUris": [
-          "https://localhost:5001",
-          "http://localhost:4200",
-          "http://localhost:5000"
-        ],
-        "AllowedCorsOrigins": [
-          "https://localhost:5001",
-          "http://localhost:4200",
-          "http://localhost:5000"
-        ],
-        "AllowedScopes": [
-          "openid",
-          "email",
-          "profile",
-          "roles",
-          "angularClientApi"
-        ]
+        "AllowPlainTextPkce": false,
+        "RequireRequestObject": false,
+        "AllowAccessTokensViaBrowser": false,
+        "RedirectUris": [ "https://localhost:5001", "http://localhost:4200", "http://localhost:5000" ],
+        "PostLogoutRedirectUris": [ "https://localhost:5001", "http://localhost:4200", "http://localhost:5000" ],
+        "FrontChannelLogoutSessionRequired": true,
+        "BackChannelLogoutSessionRequired": true,
+        "AllowOfflineAccess": false,
+        "AllowedScopes": [ "openid", "email", "profile", "roles", "angularClient_api" ],
+        "AlwaysIncludeUserClaimsInIdToken": false,
+        "IdentityTokenLifetime": 300,
+        "AllowedIdentityTokenSigningAlgorithms": [],
+        "AccessTokenLifetime": 3600,
+        "AuthorizationCodeLifetime": 300,
+        "AbsoluteRefreshTokenLifetime": 2592000,
+        "SlidingRefreshTokenLifetime": 1296000,
+        "RefreshTokenUsage": 1,
+        "UpdateAccessTokenClaimsOnRefresh": true,
+        "RefreshTokenExpiration": 1,
+        "AccessTokenType": 0,
+        "EnableLocalLogin": true,
+        "IdentityProviderRestrictions": [],
+        "IncludeJwtId": true,
+        "Claims": [],
+        "AlwaysSendClientClaims": false,
+        "ClientClaimsPrefix": "client_",
+        "DeviceCodeLifetime": 300,
+        "AllowedCorsOrigins": [ "https://localhost:5001", "http://localhost:4200", "http://localhost:5000" ],
+        "Properties": {}
+      },
+      {
+        "ClientClaims": [],
+        "Enabled": true,
+        "ClientId": "hills_inspector",
+        "ProtocolType": "oidc",
+        "ClientSecrets": [],
+        "RequireClientSecret": false,
+        "ClientName": "hills_inspector",
+        "RequireConsent": false,
+        "AllowRememberConsent": true,
+        "AllowedGrantTypes": [ "authorization_code" ],
+        "RequirePkce": true,
+        "AllowPlainTextPkce": false,
+        "RequireRequestObject": false,
+        "AllowAccessTokensViaBrowser": false,
+        "RedirectUris": [ "https://localhost:6020" ],
+        "PostLogoutRedirectUris": [ "https://localhost:6020" ],
+        "FrontChannelLogoutSessionRequired": true,
+        "BackChannelLogoutSessionRequired": true,
+        "AllowOfflineAccess": false,
+        "AllowedScopes": [ "openid", "email", "profile", "roles", "hills_inspector_api" ],
+        "AlwaysIncludeUserClaimsInIdToken": false,
+        "IdentityTokenLifetime": 300,
+        "AllowedIdentityTokenSigningAlgorithms": [],
+        "AccessTokenLifetime": 3600,
+        "AuthorizationCodeLifetime": 300,
+        "AbsoluteRefreshTokenLifetime": 2592000,
+        "SlidingRefreshTokenLifetime": 1296000,
+        "RefreshTokenUsage": 1,
+        "UpdateAccessTokenClaimsOnRefresh": true,
+        "RefreshTokenExpiration": 1,
+        "AccessTokenType": 0,
+        "EnableLocalLogin": true,
+        "IdentityProviderRestrictions": [],
+        "IncludeJwtId": true,
+        "Claims": [],
+        "AlwaysSendClientClaims": false,
+        "ClientClaimsPrefix": "client_",
+        "DeviceCodeLifetime": 300,
+        "AllowedCorsOrigins": [ "https://localhost:6020" ],
+        "Properties": {}
+      },
+      {
+        "ClientClaims": [],
+        "Enabled": true,
+        "ClientId": "hills_view",
+        "ProtocolType": "oidc",
+        "ClientSecrets": [],
+        "RequireClientSecret": false,
+        "ClientName": "hills_view",
+        "RequireConsent": false,
+        "AllowRememberConsent": true,
+        "AllowedGrantTypes": [ "authorization_code" ],
+        "RequirePkce": true,
+        "AllowPlainTextPkce": false,
+        "RequireRequestObject": false,
+        "AllowAccessTokensViaBrowser": false,
+        "RedirectUris": [ "https://localhost:6030" ],
+        "PostLogoutRedirectUris": [ "https://localhost:6030" ],
+        "FrontChannelLogoutSessionRequired": true,
+        "BackChannelLogoutSessionRequired": true,
+        "AllowOfflineAccess": false,
+        "AllowedScopes": [ "openid", "email", "profile", "roles", "hills_view_api" ],
+        "AlwaysIncludeUserClaimsInIdToken": false,
+        "IdentityTokenLifetime": 300,
+        "AllowedIdentityTokenSigningAlgorithms": [],
+        "AccessTokenLifetime": 3600,
+        "AuthorizationCodeLifetime": 300,
+        "AbsoluteRefreshTokenLifetime": 2592000,
+        "SlidingRefreshTokenLifetime": 1296000,
+        "RefreshTokenUsage": 1,
+        "UpdateAccessTokenClaimsOnRefresh": true,
+        "RefreshTokenExpiration": 1,
+        "AccessTokenType": 0,
+        "EnableLocalLogin": true,
+        "IdentityProviderRestrictions": [],
+        "IncludeJwtId": true,
+        "Claims": [],
+        "AlwaysSendClientClaims": false,
+        "ClientClaimsPrefix": "client_",
+        "DeviceCodeLifetime": 300,
+        "AllowedCorsOrigins": [ "https://localhost:6030" ],
+        "Properties": {}
+      }
+    ],
+    "IdentityResources": [],
+    "ApiResources": [
+      {
+        "ApiSecrets": [],
+        "Scopes": [ "hills_identity_admin_api" ],
+        "AllowedAccessTokenSigningAlgorithms": [],
+        "Enabled": true,
+        "Name": "hills_identity_admin_api",
+        "ShowInDiscoveryDocument": true,
+        "UserClaims": [],
+        "Properties": {}
+      },
+      {
+        "ApiSecrets": [],
+        "Scopes": [ "angularClient_api" ],
+        "AllowedAccessTokenSigningAlgorithms": [],
+        "Enabled": true,
+        "Name": "angularClient_api",
+        "ShowInDiscoveryDocument": true,
+        "UserClaims": [],
+        "Properties": {}
+      },
+      {
+        "ApiSecrets": [],
+        "Scopes": [ "hills_inspector_api" ],
+        "AllowedAccessTokenSigningAlgorithms": [],
+        "Enabled": true,
+        "Name": "hills_inspector_api",
+        "ShowInDiscoveryDocument": true,
+        "UserClaims": [],
+        "Properties": {}
+      },
+      {
+        "ApiSecrets": [],
+        "Scopes": [ "hills_view_api" ],
+        "AllowedAccessTokenSigningAlgorithms": [],
+        "Enabled": true,
+        "Name": "hills_view_api",
+        "ShowInDiscoveryDocument": true,
+        "UserClaims": [],
+        "Properties": {}
+      }
+    ],
+    "ApiScopes": [
+      {
+        "Required": true,
+        "Emphasize": false,
+        "Enabled": true,
+        "Name": "hills_identity_admin_api",
+        "DisplayName": "hills_identity_admin_api",
+        "ShowInDiscoveryDocument": true,
+        "UserClaims": [ "role", "name" ],
+        "Properties": {}
+      },
+      {
+        "Required": true,
+        "Emphasize": false,
+        "Enabled": true,
+        "Name": "angularClient_api",
+        "DisplayName": "angularClient_api",
+        "ShowInDiscoveryDocument": true,
+        "UserClaims": [ "role", "name" ],
+        "Properties": {}
+      },
+      {
+        "Required": true,
+        "Emphasize": false,
+        "Enabled": true,
+        "Name": "hills_inspector_api",
+        "DisplayName": "hills_inspector_api",
+        "ShowInDiscoveryDocument": true,
+        "UserClaims": [ "role", "name" ],
+        "Properties": {}
+      },
+      {
+        "Required": true,
+        "Emphasize": false,
+        "Enabled": true,
+        "Name": "hills_view_api",
+        "DisplayName": "hills_view_api",
+        "ShowInDiscoveryDocument": true,
+        "UserClaims": [ "role", "name" ],
+        "Properties": {}
+      }
+    ]
+
+
+  },
+  "IdentityData": {
+    "Roles": [
+      {
+        "Name": "HillsIdentityAdminAdministrator",
+        "ActiveDirectoryRole": "Hills Administrator"
       }
     ]
   }
-
 }

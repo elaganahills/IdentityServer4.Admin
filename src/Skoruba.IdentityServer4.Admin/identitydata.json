@@ -1,19 +1,5 @@
 ﻿{
-  "IdentityData": {
-    "Roles": [
-      {
-        "Name": "HillsIdentityAdminAdministrator"
-      },
-      {
-        "Name": "Administrator"
-      },
-      {
-        "Name": "Supervisor"
-      },
-      {
-        "Name": "User"
-      }
-    ],
+  "IdentityData": { 
     "Users": [
       {
         "Username": "admin",

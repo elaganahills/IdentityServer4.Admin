@@ -24,6 +24,7 @@ namespace Hills.IdentityServer4.Deployment
 
         public string Title { get => lblTitle.Text; set => lblTitle.Text = value; }
         public int EndPointsCount { get => EndPoints.Count; }
+        public int ValidEndPointsCount { get => EndPoints.Where(ep => ep.GetCertificateStatus() != EndPointConfiguration.CertificateValidity.Invalid).Count(); }
 
         List<EndPointConfiguration> _endPoints;
         public List<EndPointConfiguration> EndPoints
@@ -42,7 +43,7 @@ namespace Hills.IdentityServer4.Deployment
 
             foreach (var ep in EndPoints)
                 lstEndPoints.Items.Add(new ListViewItem(new string[]
-                { ep.Name,ep.IpAddress,ep.Port.ToString(),ep.UseHttps.ToString(), ep.Certificate_Type.ToString(),ep.Certificate_Source })
+                { ep.Name,ep.IpAddress,ep.Port.ToString(),ep.UseHttps.ToString(), ep.Certificate_Type.ToString(),ep.Certificate_Source, ep.GetCertificateStatus().ToString() })
                 { Tag = ep });
 
         }
@@ -67,6 +68,12 @@ namespace Hills.IdentityServer4.Deployment
                 RefreshTable();
                 UpdateStatus();
             }
+        }
+
+        internal void UpdateTable()
+        {
+            RefreshTable();
+            UpdateStatus();
         }
 
         private void lnkRemove_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

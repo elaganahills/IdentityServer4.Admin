@@ -13,6 +13,7 @@ using Skoruba.AuditLogging.EntityFramework.DbContexts;
 using Skoruba.AuditLogging.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Configuration;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
 
 namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
 {
@@ -37,7 +38,7 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
             where TAuditLogDbContext : DbContext, IAuditLoggingDbContext<AuditLog>
             where TDataProtectionDbContext : DbContext, IDataProtectionKeyContext
             where TUser : IdentityUser, new()
-            where TRole : IdentityRole, new()
+            where TRole : UserIdentityRole, new()
         {
             using (var serviceScope = host.Services.CreateScope())
             {
@@ -102,7 +103,7 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
         public static async Task EnsureSeedDataAsync<TIdentityServerDbContext, TUser, TRole>(IServiceProvider serviceProvider)
         where TIdentityServerDbContext : DbContext, IAdminConfigurationDbContext
         where TUser : IdentityUser, new()
-        where TRole : IdentityRole, new()
+        where TRole : UserIdentityRole, new()
         {
             using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
@@ -123,7 +124,7 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
         private static async Task EnsureSeedIdentityData<TUser, TRole>(UserManager<TUser> userManager,
             RoleManager<TRole> roleManager, IdentityData identityDataConfiguration)
             where TUser : IdentityUser, new()
-            where TRole : IdentityRole, new()
+            where TRole : UserIdentityRole, new()
         {
             // adding roles from seed
             foreach (var r in identityDataConfiguration.Roles)
@@ -132,7 +133,8 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Helpers
                 {
                     var role = new TRole
                     {
-                        Name = r.Name
+                        Name = r.Name,
+                        ActiveDirectoryRole = r.ActiveDirectoryRole
                     };
 
                     var result = await roleManager.CreateAsync(role);

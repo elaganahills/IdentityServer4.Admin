@@ -61,10 +61,10 @@ namespace Skoruba.IdentityServer4.STS.Identity.Services
 
                 foreach (var g in adusr.Groups)
                 {
-                    var is4role = _identityService.Roles.FirstOrDefault(r => r.ActiveDirectoryRole == g.Name);
-                    if (is4role != null)
+                    var is4role = _identityService.Roles.Where(r => r.ActiveDirectoryRole == g.Name);
+                    if (is4role.Any())
                         //add group role
-                        claims.Add(new Claim("role", is4role.Name));
+                        claims.AddRange(is4role.Select(r => new Claim("role", r.Name)));
                     else
                         claims.Add(new Claim("role", g.Name));
 
