@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Security.Principal;
 using System.Text;
 using Skoruba.IdentityServer4.STS.Identity.Configuration.Interfaces;
+using Skoruba.IdentityServer4.Shared.Configuration.Configuration;
 
 namespace Skoruba.IdentityServer4.STS.Identity.Services
 {
@@ -28,11 +29,10 @@ namespace Skoruba.IdentityServer4.STS.Identity.Services
 
         //PrincipalContext _principalContext;
         IRootConfiguration _rootConfiguration;
-
-        string[] groupProperties = new string[] { "hhsIsAttribute1","hhsIsAttribute2" };
+        
         string DistinguishedDomainName;
 
-        bool LoadAtributes { get => _rootConfiguration.ActiveDirectoryConfiguration.LoadAtributes; }
+        ActiveDirectoryConfiguration _adConf { get => _rootConfiguration.ActiveDirectoryConfiguration; }
 
         public ActiveDirectoryService(IRootConfiguration rootConfiguration)
         {
@@ -52,7 +52,7 @@ namespace Skoruba.IdentityServer4.STS.Identity.Services
 
         PrincipalContext GetContext()
         {
-            if (_rootConfiguration.ActiveDirectoryConfiguration.WindowsAutentiction)
+            if (_rootConfiguration.ActiveDirectoryConfiguration.WindowsAutentication)
                 return new PrincipalContext(ContextType.Domain,
                  _rootConfiguration.ActiveDirectoryConfiguration.Server);
             else
@@ -65,7 +65,7 @@ namespace Skoruba.IdentityServer4.STS.Identity.Services
         DirectoryEntry GetDirectoryEntry()
         {
 
-            if (_rootConfiguration.ActiveDirectoryConfiguration.WindowsAutentiction)
+            if (_rootConfiguration.ActiveDirectoryConfiguration.WindowsAutentication)
                 return new DirectoryEntry("LDAP://" + _rootConfiguration.ActiveDirectoryConfiguration.Server);
             else
                 return new DirectoryEntry("LDAP://" + _rootConfiguration.ActiveDirectoryConfiguration.Server,
@@ -77,60 +77,53 @@ namespace Skoruba.IdentityServer4.STS.Identity.Services
         public async Task<ActiveDirectoryUser> GetAdUserAsync(string name, bool loadproperties, UserFilter filterby = UserFilter.Name )
         {
             var aduser = new ActiveDirectoryUser();
-    
-            using (var searcher = new DirectorySearcher(GetDirectoryEntry()))
+
+            using (var context = GetContext())
             {
-     
-                searcher.Filter = string.Format("(&(objectClass=user)({0}={1}))", (filterby == UserFilter.Name)? "anr" : "mail", name);
-                searcher.SearchScope = SearchScope.Subtree;
-                searcher.PropertiesToLoad.Add("cn");
-                searcher.PropertiesToLoad.Add("samaccountname");
-                if (LoadAtributes)
-                    searcher.PropertiesToLoad.AddRange(groupProperties);
+                UserPrincipal u = UserPrincipal.FindByIdentity(context, name);
+                aduser.Name = u.DisplayName;
+                aduser.SamAccountName = u.SamAccountName;
+                aduser.Email = u.EmailAddress;
 
-                foreach (SearchResult entry in searcher.FindAll())
+                if (_adConf.LoadAttributes && _adConf.UserAttributes != null)
                 {
-                    aduser.Name = entry.Properties["cn"][0].ToString();
-                    aduser.SamAccountName = entry.Properties["samaccountname"][0].ToString();
-                    if (entry.Properties["mail"] != null && entry.Properties["mail"].Count > 0)
-                        aduser.Email = entry.Properties["mail"][0].ToString();
-                    if (LoadAtributes)
+                    var a = u.GetUnderlyingObject() as DirectoryEntry;
+                    foreach (var ua in _adConf.UserAttributes)
                     {
-                        foreach (string pname in entry.Properties.PropertyNames)
+                        var po = a.Properties[ua];
+                        if (po != null && po.Value != null)
                         {
-                            if (pname.StartsWith(_rootConfiguration.ActiveDirectoryConfiguration.AtributesStartFilter))
-                            {
-                                aduser.Claims.Add(new Claim(pname, entry.Properties[pname][0].ToString()));
-                            }
+                            aduser.Claims.Add(new Claim(ua, po.Value.ToString()));
+                            Console.WriteLine(ua + ":" + po.Value.ToString());
                         }
                     }
                 }
 
-                searcher.Filter = String.Format("(&(objectCategory=group)(member=cn={0},cn=Users{1}))", aduser.Name,DistinguishedDomainName);
 
-                foreach (SearchResult entry in searcher.FindAll())
+                foreach (var g in u.GetAuthorizationGroups())
                 {
-                    if (entry.Properties.Contains("cn"))
-                    {
-                        var adgroup = new ActiveDirectoryGroup();
-                        adgroup.Name = entry.Properties["cn"][0].ToString();
-                        aduser.Groups.Add(adgroup);
+                    var adgroup = new ActiveDirectoryGroup();
+                    adgroup.Name = g.Name;
 
-                        if (LoadAtributes)
+                    if (_adConf.LoadAttributes && _adConf.GroupAttributes != null)
+                    {
+                        var a = g.GetUnderlyingObject() as DirectoryEntry;
+                        foreach (var ua in _adConf.GroupAttributes)
                         {
-                            foreach (string pname in entry.Properties.PropertyNames)
+                            var po = a.Properties[ua];
+                            if (po != null && po.Value != null)
                             {
-                                if (pname.StartsWith(_rootConfiguration.ActiveDirectoryConfiguration.AtributesStartFilter))
-                                {
-                                    adgroup.Claims.Add(new Claim(pname, entry.Properties[pname][0].ToString()));
-                                }
+                                adgroup.Claims.Add(new Claim(ua, po.Value.ToString()));
+                                Console.WriteLine(ua + "(group):" + po.Value.ToString());
                             }
                         }
                     }
+
+                    aduser.Groups.Add(adgroup);
                 }
-                        
+
             }
-      
+
             return aduser;
         }
 

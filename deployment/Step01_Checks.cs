@@ -36,6 +36,8 @@ namespace Hills.IdentityServer4.Deployment
 
             taskCurrentUser.Set(ucTaskResult.Statuses.Good, Environment.UserName);
 
+            //PowerShellHelper.EnableRemoting();
+
             var processadmin = PowerShellHelper.CheckCurrentProcessAdmin();
             taskIsProcessAdmin.Set(processadmin ? ucTaskResult.Statuses.Good : ucTaskResult.Statuses.Error, processadmin.ToString());
 

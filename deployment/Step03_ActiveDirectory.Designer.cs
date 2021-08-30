@@ -41,12 +41,12 @@ namespace Hills.IdentityServer4.Deployment
             this.label3 = new System.Windows.Forms.Label();
             this.txtSearchBaseDN = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtAtributesStartFilter = new System.Windows.Forms.TextBox();
+            this.txtUserAtributes = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.chkLoadAtributes = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtHHSOID = new System.Windows.Forms.TextBox();
+            this.txtGroupAtributes = new System.Windows.Forms.TextBox();
             this.cmdTestConnection = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.txtPort = new System.Windows.Forms.TextBox();
@@ -159,30 +159,30 @@ namespace Hills.IdentityServer4.Deployment
             this.label4.TabIndex = 15;
             this.label4.Text = "SearchBaseDN";
             // 
-            // txtAtributesStartFilter
+            // txtUserAtributes
             // 
-            this.txtAtributesStartFilter.Location = new System.Drawing.Point(181, 344);
-            this.txtAtributesStartFilter.Name = "txtAtributesStartFilter";
-            this.txtAtributesStartFilter.Size = new System.Drawing.Size(424, 23);
-            this.txtAtributesStartFilter.TabIndex = 8;
+            this.txtUserAtributes.Location = new System.Drawing.Point(181, 344);
+            this.txtUserAtributes.Name = "txtUserAtributes";
+            this.txtUserAtributes.Size = new System.Drawing.Size(424, 23);
+            this.txtUserAtributes.TabIndex = 8;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(70, 347);
+            this.label5.Location = new System.Drawing.Point(97, 347);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(105, 15);
+            this.label5.Size = new System.Drawing.Size(78, 15);
             this.label5.TabIndex = 15;
-            this.label5.Text = "AtributesStartFilter";
+            this.label5.Text = "UserAtributes";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(94, 318);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(81, 15);
+            this.label8.Size = new System.Drawing.Size(85, 15);
             this.label8.TabIndex = 19;
-            this.label8.Text = "LoadAtributes";
+            this.label8.Text = "LoadAttributes";
             // 
             // chkLoadAtributes
             // 
@@ -195,18 +195,18 @@ namespace Hills.IdentityServer4.Deployment
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(124, 376);
+            this.label9.Location = new System.Drawing.Point(87, 376);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(51, 15);
+            this.label9.Size = new System.Drawing.Size(88, 15);
             this.label9.TabIndex = 21;
-            this.label9.Text = "HHSOID";
+            this.label9.Text = "GroupAtributes";
             // 
-            // txtHHSOID
+            // txtGroupAtributes
             // 
-            this.txtHHSOID.Location = new System.Drawing.Point(181, 373);
-            this.txtHHSOID.Name = "txtHHSOID";
-            this.txtHHSOID.Size = new System.Drawing.Size(424, 23);
-            this.txtHHSOID.TabIndex = 9;
+            this.txtGroupAtributes.Location = new System.Drawing.Point(181, 373);
+            this.txtGroupAtributes.Name = "txtGroupAtributes";
+            this.txtGroupAtributes.Size = new System.Drawing.Size(424, 23);
+            this.txtGroupAtributes.TabIndex = 9;
             // 
             // cmdTestConnection
             // 
@@ -307,7 +307,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.txtPort);
             this.Controls.Add(this.cmdTestConnection);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.txtHHSOID);
+            this.Controls.Add(this.txtGroupAtributes);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.chkLoadAtributes);
             this.Controls.Add(this.label3);
@@ -318,7 +318,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtAtributesStartFilter);
+            this.Controls.Add(this.txtUserAtributes);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtSearchBaseDN);
             this.Controls.Add(this.txtPassword);
@@ -336,7 +336,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.SetChildIndex(this.txtPassword, 0);
             this.Controls.SetChildIndex(this.txtSearchBaseDN, 0);
             this.Controls.SetChildIndex(this.label6, 0);
-            this.Controls.SetChildIndex(this.txtAtributesStartFilter, 0);
+            this.Controls.SetChildIndex(this.txtUserAtributes, 0);
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.label4, 0);
@@ -347,7 +347,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.chkLoadAtributes, 0);
             this.Controls.SetChildIndex(this.label8, 0);
-            this.Controls.SetChildIndex(this.txtHHSOID, 0);
+            this.Controls.SetChildIndex(this.txtGroupAtributes, 0);
             this.Controls.SetChildIndex(this.label9, 0);
             this.Controls.SetChildIndex(this.cmdTestConnection, 0);
             this.Controls.SetChildIndex(this.txtPort, 0);
@@ -375,12 +375,12 @@ namespace Hills.IdentityServer4.Deployment
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtSearchBaseDN;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtAtributesStartFilter;
+        private System.Windows.Forms.TextBox txtUserAtributes;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox chkLoadAtributes;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtHHSOID;
+        private System.Windows.Forms.TextBox txtGroupAtributes;
         private System.Windows.Forms.Button cmdTestConnection;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtPort;

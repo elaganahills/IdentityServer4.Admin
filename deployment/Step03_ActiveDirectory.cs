@@ -38,8 +38,6 @@ namespace Hills.IdentityServer4.Deployment
         {
             try
             {
-                if (string.IsNullOrEmpty(txtIdentityServerAdminRole.Text))
-                    throw new Exception("IdentityServer Admin Role is required.");
 
                 //Save Sql Info
                 Program.ActiveDirectoryConfiguration = new ActiveDirectoryConfiguration()
@@ -50,10 +48,10 @@ namespace Hills.IdentityServer4.Deployment
                     Username = txtUsername.Text,
                     Password = txtPassword.Text,
                     SearchBaseDN = txtSearchBaseDN.Text,
-                    WindowsAutentiction = chkWindowsAutentiction.Checked,
-                    LoadAtributes = chkLoadAtributes.Checked,
-                    AtributesStartFilter = txtAtributesStartFilter.Text,
-                    HHSOID = txtHHSOID.Text,
+                    WindowsAutentication = chkWindowsAutentiction.Checked,
+                    LoadAttributes = chkLoadAtributes.Checked,
+                    UserAttributes = AttributesToList(txtUserAtributes.Text),
+                    GroupAttributes = AttributesToList(txtGroupAtributes.Text),
                     IdentityServerAdminRole = txtIdentityServerAdminRole.Text
                 };
 
@@ -65,6 +63,14 @@ namespace Hills.IdentityServer4.Deployment
             {
                 ShowErrorMessage(ex.Message);
             }
+        }
+
+        List<string> AttributesToList(string csvs)
+        {
+            if (string.IsNullOrEmpty(csvs))
+                return null;
+
+            return new List<string>(csvs.Split(";,".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()));
         }
 
         public override void cmdPrevious_Click(object sender, EventArgs e)
@@ -84,6 +90,13 @@ namespace Hills.IdentityServer4.Deployment
         {
             if (chkEnable.Checked)
             {
+                if (string.IsNullOrEmpty(txtIdentityServerAdminRole.Text))
+                {
+                    MessageBox.Show("IdentityServer Admin Role is required.", "Active Directory connection test", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    EnableNext = false;
+                    return;
+                }
+
                 var res = ActiveDirectory.CheckConnection(txtServer.Text, int.Parse(txtPort.Text), chkWindowsAutentiction.Checked, txtUsername.Text, txtPassword.Text, txtTestUsername.Text, txtTestPassword.Text);
                 MessageBox.Show(res.Details, "Active Directory connection test", MessageBoxButtons.OK, res.Succesfull ? MessageBoxIcon.Information : MessageBoxIcon.Error);
                 EnableNext = res.Succesfull;
