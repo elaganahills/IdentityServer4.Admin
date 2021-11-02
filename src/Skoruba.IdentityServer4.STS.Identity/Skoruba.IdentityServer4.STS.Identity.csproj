@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-      <AssemblyVersion>0.0.0.4</AssemblyVersion>
-      <FileVersion>0.0.0.4</FileVersion>
+      <AssemblyVersion>0.0.0.6</AssemblyVersion>
+      <FileVersion>0.0.0.6</FileVersion>
         <Authors>Emanuele Lagana</Authors>
         <UserSecretsId>9c91d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
         <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
@@ -11,6 +11,7 @@
         <DockerfileContext>..\..</DockerfileContext>
         <AssemblyName>Hills.IdentityServer4.STS.Identity</AssemblyName>
         <RootNamespace>Hills.IdentityServer4.STS.Identity</RootNamespace>
+        <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
       
     </PropertyGroup>
 

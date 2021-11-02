@@ -12,49 +12,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Skoruba.IdentityServer4.Shared.Configuration.Configuration.Identity;
 
 namespace Hills.IdentityServer4.Deployment
 {
-    public partial class Step05_PreConfiguredServices : Step
+    public partial class Step06_Roles : Step
     {
-        public Step05_PreConfiguredServices()
+        public Step06_Roles()
         {
             InitializeComponent();
 
             EnableNext = false;
 
             //adjust redirect urls
-            var clientsettings = Program.Clients.FirstOrDefault(c => c.ClientId == "hills_identity_admin");
-            clientsettings.RedirectUris = Program.EndPointsAdmin.Select(ep => ep.Address + "/signin-oidc").ToArray();
-            clientsettings.PostLogoutRedirectUris = Program.EndPointsAdmin.Select(ep => ep.Address + "/signout-callback-oidc").ToArray();
-            clientsettings.AllowedCorsOrigins = Program.EndPointsAdmin.Select(ep => ep.Address).ToArray();
-            clientsettings.ClientUri = Program.EndPointsAdmin.First().Address;
-            clientsettings.FrontChannelLogoutUri = Program.EndPointsAdmin.First().Address + "/signout-oidc";
+            if (!Program.Roles.Any())
+            {
+                Program.Roles.Add(new UserIdentityRoleConfiguration() { Name = "Administrator" });
+                Program.Roles.Add(new UserIdentityRoleConfiguration() { Name = "Supervisor" });
+                Program.Roles.Add(new UserIdentityRoleConfiguration() { Name = "User" });
+                Program.Roles.Add(new UserIdentityRoleConfiguration() { Name = "HillsIdentityAdminAdministrator",
+                    ActiveDirectoryRole = Program.ActiveDirectoryConfiguration?.IdentityServerAdminRole
+                });
+
+            }
 
             RefreshTable();
         }
 
-        private void Step04_PreConfiguredServices_Load(object sender, EventArgs e)
+        private void Step06_Roles_Load(object sender, EventArgs e)
         {
 
         }
 
         void RefreshTable()
         {
-            lstClients.Items.Clear();
+            lstRoles.Items.Clear();
 
-            foreach (var ep in Program.Clients)
-                lstClients.Items.Add(new ListViewItem(new string[]
-                { ep.ClientId,ep.ClientName})
+            foreach (var ep in Program.Roles)
+                lstRoles.Items.Add(new ListViewItem(new string[]
+                { ep.Name,ep.ActiveDirectoryRole})
                 { Tag = ep });
 
-            EnableNext = Program.Clients.Any(c => c.ClientId == "hills_identity_admin");
+            EnableNext = Program.Roles.Any();
         }
 
-        Client SelectedItem()
+        UserIdentityRoleConfiguration SelectedItem()
         {
-            if (lstClients.SelectedItems.Count == 1)
-                return (Client)lstClients.SelectedItems[0].Tag;
+            if (lstRoles.SelectedItems.Count == 1)
+                return (UserIdentityRoleConfiguration)lstRoles.SelectedItems[0].Tag;
             else
                 return null;
         }
@@ -62,12 +67,12 @@ namespace Hills.IdentityServer4.Deployment
         private void lnkEdit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (sender == lnkAdd)
-                lstClients.SelectedItems.Clear();
-            var aep = new EditConfiguredService(SelectedItem());
+                lstRoles.SelectedItems.Clear();
+            var aep = new EditRole(SelectedItem());
             if (aep.ShowDialog() == DialogResult.OK)
             {
-                if (!Program.Clients.Contains(aep.Client))
-                    Program.Clients.Add(aep.Client);
+                if (!Program.Roles.Contains(aep.Role))
+                    Program.Roles.Add(aep.Role);
                 RefreshTable();
             }
         }
@@ -77,7 +82,7 @@ namespace Hills.IdentityServer4.Deployment
             var si = SelectedItem();
             if (si != null)
             {
-                Program.Clients.Remove(si);
+                Program.Roles.Remove(si);
                 RefreshTable();
             }
         }
@@ -89,7 +94,7 @@ namespace Hills.IdentityServer4.Deployment
             {
 
                 //close current form and open next
-                new Step06_Roles().Show();
+                new Step07_Configuration().Show();
                 this.Close(false);
             }
             catch (Exception ex)
@@ -101,8 +106,10 @@ namespace Hills.IdentityServer4.Deployment
         public override void cmdPrevious_Click(object sender, EventArgs e)
         {
             //close current form and open previous
-            new Step04_EndPoints().Show();
+            new Step05_PreConfiguredServices().Show();
             this.Close(false);
         }
+
+
     }
 }

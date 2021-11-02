@@ -13,12 +13,11 @@
  ; Name
 !define PRODUCT_NAME "Hills.IdentityServer"
  ; Version
-!define PRODUCT_VERSION "0.0.7"
+!define PRODUCT_VERSION "0.0.11"
  ; Installation icon path
-;!define INSTALL_ICON "logo.ico"
+!define INSTALL_ICON             "icon.ico"
  ; Uninstall icon path
-;!define UNINSTALL_ICON "uninstall_logo.ico"
- ; File path to be packaged
+!define UNINSTALL_ICON           "icon.ico"
 
  ; announcer 
 !define PRODUCT_PUBLISHER "Hills"
@@ -50,9 +49,10 @@ RequestExecutionLevel admin
   !define MUI_ABORTWARNING
 
 
-!define MUI_WELCOMEFINISHPAGE_BITMAP "img01.png"
-!define MUI_UNWELCOMEFINISHPAGE_BITMAP "img01.png"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
+!define MUI_UNWELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
 
+!define MUI_ICON "icon.ico"
 !define MUI_HEADERIMAGE "logo01.bmp"
 !define MUI_HEADERIMAGE_RIGHT "logo01.bmp"
 !define MUI_HEADERIMAGE_BITMAP "logo01.bmp"
@@ -101,9 +101,17 @@ Section
 	WriteRegStr ${REGHKEY} "${REGPATH_WINUNINST}\${REGUNINSTKEY}" "DisplayName" "Hills Identity Server"
 	WriteRegStr ${REGHKEY} "${REGPATH_WINUNINST}\${REGUNINSTKEY}" "UninstallString" '"$INSTDIR\uninstall.exe"'
 
+	SetOutPath "$INSTDIR"
+    File "icon.ico"
+	;WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$instdir\favicon.ico,0"
+    WriteRegStr ${REGHKEY} "${REGPATH_WINUNINST}\${REGUNINSTKEY}" "DisplayIcon" '"$INSTDIR\icon.ico"'
+    WriteRegStr ${REGHKEY} "${REGPATH_WINUNINST}\${REGUNINSTKEY}" "DisplayVersion" "${PRODUCT_VERSION}"
+    WriteRegStr ${REGHKEY} "${REGPATH_WINUNINST}\${REGUNINSTKEY}" "Publisher" "${PUBLISHER_COMPANY}"
+	WriteRegStr ${REGHKEY} "${REGPATH_WINUNINST}\${REGUNINSTKEY}" "InstallLocation" "$INSTDIR"
+
     # create a shortcut named "new shortcut" in the start menu programs directory
 	SetOutPath "$INSTDIR"
-    CreateShortcut "$SMPROGRAMS\HillsIdentityServer.lnk" "$INSTDIR\open.bat"
+    CreateShortcut "$SMPROGRAMS\HillsIdentityServer.lnk" "$INSTDIR\Hills.IdentityServer4.Deployment\Hills.IdentityServer4.Deployment.exe" "--open"	 
 	
 	SetOutPath "$INSTDIR\Hills.IdentityServer4.Deployment"
 	#Exec "$INSTDIR\install.bat"

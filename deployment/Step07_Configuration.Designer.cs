@@ -1,7 +1,7 @@
 ﻿
 namespace Hills.IdentityServer4.Deployment
 {
-    partial class Step06_Configuration
+    partial class Step07_Configuration
     {
         /// <summary>
         /// Required designer variable.

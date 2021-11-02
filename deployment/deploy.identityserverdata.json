@@ -35,6 +35,7 @@
         "ClientId": "angularClient",
         "ClientName": "angularClient",
         "UpdateAccessTokenClaimsOnRefresh": true,
+        "AllowOfflineAccess": true,
         "AllowedGrantTypes": [
           "authorization_code"
         ],
@@ -43,7 +44,10 @@
         "RedirectUris": [
           "https://localhost:5001",
           "http://localhost:4200",
-          "http://localhost:5000"
+          "http://localhost:5000",
+          "https://localhost:5001/silent-renew.html",
+          "http://localhost:4200/silent-renew.html",
+          "http://localhost:5000/silent-renew.html"
         ],
         "PostLogoutRedirectUris": [
           "https://localhost:5001",
@@ -67,13 +71,15 @@
         "ClientId": "hills_inspector",
         "ClientName": "hills_inspector",
         "UpdateAccessTokenClaimsOnRefresh": true,
+        "AllowOfflineAccess": true,
         "AllowedGrantTypes": [
           "authorization_code"
         ],
         "RequirePkce": true,
         "RequireClientSecret": false,
         "RedirectUris": [
-          "https://localhost:6020"
+          "https://localhost:6020",
+          "https://localhost:6020/silent-renew.html"
         ],
         "PostLogoutRedirectUris": [
           "https://localhost:6020"
@@ -93,13 +99,15 @@
         "ClientId": "hills_view",
         "ClientName": "hills_view",
         "UpdateAccessTokenClaimsOnRefresh": true,
+        "AllowOfflineAccess": true,
         "AllowedGrantTypes": [
           "authorization_code"
         ],
         "RequirePkce": true,
         "RequireClientSecret": false,
         "RedirectUris": [
-          "https://localhost:6030"
+          "https://localhost:6030",
+          "https://localhost:6030/silent-renew.html"
         ],
         "PostLogoutRedirectUris": [
           "https://localhost:6030"

@@ -1,7 +1,7 @@
 ﻿
 namespace Hills.IdentityServer4.Deployment
 {
-    partial class Step05_PreConfiguredServices
+    partial class Step06_Roles
     {
         /// <summary>
         /// Required designer variable.
@@ -32,9 +32,9 @@ namespace Hills.IdentityServer4.Deployment
             this.lnkRemove = new System.Windows.Forms.LinkLabel();
             this.lnkEdit = new System.Windows.Forms.LinkLabel();
             this.lnkAdd = new System.Windows.Forms.LinkLabel();
-            this.lstClients = new System.Windows.Forms.ListView();
-            this.colId = new System.Windows.Forms.ColumnHeader();
+            this.lstRoles = new System.Windows.Forms.ListView();
             this.colName = new System.Windows.Forms.ColumnHeader();
+            this.colActiveDirectoryRole = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // lnkRemove
@@ -70,48 +70,45 @@ namespace Hills.IdentityServer4.Deployment
             this.lnkAdd.Text = "Add";
             this.lnkAdd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkEdit_LinkClicked);
             // 
-            // lstClients
+            // lstRoles
             // 
-            this.lstClients.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colId,
-            this.colName});
-            this.lstClients.FullRowSelect = true;
-            this.lstClients.HideSelection = false;
-            this.lstClients.Location = new System.Drawing.Point(9, 75);
-            this.lstClients.Name = "lstClients";
-            this.lstClients.Size = new System.Drawing.Size(866, 374);
-            this.lstClients.TabIndex = 8;
-            this.lstClients.UseCompatibleStateImageBehavior = false;
-            this.lstClients.View = System.Windows.Forms.View.Details;
-            // 
-            // colId
-            // 
-            this.colId.DisplayIndex = 1;
-            this.colId.Text = "Id";
-            this.colId.Width = 150;
+            this.lstRoles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colName,
+            this.colActiveDirectoryRole});
+            this.lstRoles.FullRowSelect = true;
+            this.lstRoles.HideSelection = false;
+            this.lstRoles.Location = new System.Drawing.Point(9, 75);
+            this.lstRoles.Name = "lstRoles";
+            this.lstRoles.Size = new System.Drawing.Size(866, 374);
+            this.lstRoles.TabIndex = 8;
+            this.lstRoles.UseCompatibleStateImageBehavior = false;
+            this.lstRoles.View = System.Windows.Forms.View.Details;
             // 
             // colName
             // 
-            this.colName.DisplayIndex = 0;
             this.colName.Text = "Name";
             this.colName.Width = 150;
             // 
-            // Step05_PreConfiguredServices
+            // colActiveDirectoryRole
+            // 
+            this.colActiveDirectoryRole.Text = "Active Directory Role";
+            this.colActiveDirectoryRole.Width = 150;
+            // 
+            // Step06_Roles
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(884, 661);
             this.Controls.Add(this.lnkRemove);
             this.Controls.Add(this.lnkEdit);
             this.Controls.Add(this.lnkAdd);
-            this.Controls.Add(this.lstClients);
+            this.Controls.Add(this.lstRoles);
             this.EnableNext = true;
             this.EnablePrevious = true;
-            this.Name = "Step05_PreConfiguredServices";
-            this.Text = "Step05_PreConfiguredServices";
-            this.Title = "Configure the following applications (clients) during the installation. The appli" +
-    "cation hills_identity_admin is mandatory.";
-            this.Load += new System.EventHandler(this.Step04_PreConfiguredServices_Load);
-            this.Controls.SetChildIndex(this.lstClients, 0);
+            this.Name = "Step06_Roles";
+            this.Text = "Step06_Roles";
+            this.Title = "Configure the following roles.";
+            this.Load += new System.EventHandler(this.Step06_Roles_Load);
+            this.Controls.SetChildIndex(this.lstRoles, 0);
             this.Controls.SetChildIndex(this.lnkAdd, 0);
             this.Controls.SetChildIndex(this.lnkEdit, 0);
             this.Controls.SetChildIndex(this.lnkRemove, 0);
@@ -124,8 +121,8 @@ namespace Hills.IdentityServer4.Deployment
         private System.Windows.Forms.LinkLabel lnkRemove;
         private System.Windows.Forms.LinkLabel lnkEdit;
         private System.Windows.Forms.LinkLabel lnkAdd;
-        private System.Windows.Forms.ListView lstClients;
+        private System.Windows.Forms.ListView lstRoles;
         private System.Windows.Forms.ColumnHeader colName;
-        private System.Windows.Forms.ColumnHeader colId;
+        private System.Windows.Forms.ColumnHeader colActiveDirectoryRole;
     }
 }

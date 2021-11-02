@@ -18,9 +18,9 @@ using is4models = IdentityServer4.Models;
 
 namespace Hills.IdentityServer4.Deployment
 {
-    public partial class Step06_Configuration : Step
+    public partial class Step07_Configuration : Step
     {
-        public Step06_Configuration()
+        public Step07_Configuration()
         {
             InitializeComponent();
 
@@ -341,18 +341,7 @@ namespace Hills.IdentityServer4.Deployment
                     }
                 }
                 isdc.IdentityData = new IdentityDataConfiguration();
-                isdc.IdentityData.Roles = new List<UserIdentityRoleConfiguration>();
-                isdc.IdentityData.Roles.Add(new UserIdentityRoleConfiguration() { Name = "Administrator" });
-                isdc.IdentityData.Roles.Add(new UserIdentityRoleConfiguration() { Name = "Supervisor" });
-                isdc.IdentityData.Roles.Add(new UserIdentityRoleConfiguration() { Name = "User" });
-                if (Program.ActiveDirectoryConfiguration != null && Program.ActiveDirectoryConfiguration.Enabled)
-                {
-                    //admin role required
-                    isdc.IdentityData.Roles.Add(new UserIdentityRoleConfiguration() { Name = "HillsIdentityAdminAdministrator", ActiveDirectoryRole = Program.ActiveDirectoryConfiguration.IdentityServerAdminRole });
-                } else
-                {
-                    isdc.IdentityData.Roles.Add(new UserIdentityRoleConfiguration() { Name = "HillsIdentityAdminAdministrator" });
-                }
+                isdc.IdentityData.Roles = Program.Roles;
 
                 // save client also to local file
                 using (StreamWriter file = new StreamWriter(Helper.GetProjectFilePath(@"deploy.identityserverdata.json"), false))
@@ -407,7 +396,7 @@ namespace Hills.IdentityServer4.Deployment
         public override void cmdNext_Click(object sender, EventArgs e)
         {
             //close current form and open previous
-            new Step07_End().Show();
+            new Step08_End().Show();
             this.Close(false);
         }
 

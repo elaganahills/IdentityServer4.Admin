@@ -12,10 +12,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Hills.Extensions;
 using Skoruba.IdentityServer4.Shared.Configuration.Configuration;
+using Skoruba.IdentityServer4.Shared.Configuration.Configuration.Identity;
 
 namespace Hills.IdentityServer4.Deployment
 {
- 
+
     static class Program
     {
         /// <summary>
@@ -42,18 +43,18 @@ namespace Hills.IdentityServer4.Deployment
             {
                 using (StreamReader file = File.OpenText(Helper.GetProjectFilePath(@"deploy.endpointsadmin.json")))
                 {
-                    EndPointsAdmin = (List<EndPointConfiguration>)new JsonSerializer().Deserialize(file, typeof(List<EndPointConfiguration>));                    
+                    EndPointsAdmin = (List<EndPointConfiguration>)new JsonSerializer().Deserialize(file, typeof(List<EndPointConfiguration>));
                 }
                 OperaExtensions.OpenBrowserDelayed(Helper.GetOperaPath(), Program.EndPointsAdmin.First().Address, 500);
                 return;
             } else if (args.Contains("--uninstall"))
             {
                 new Uninstall().Show();
-            } else { 
+            } else {
                 //add test endpoint
                 EndPoints.Add(new EndPointConfiguration() {
                     Name = "Default",
-                    IpAddress = "0.0.0.0", 
+                    IpAddress = "0.0.0.0",
                     Port = 6010,
                     UseHttps = true,
                     Certificate_Type = EndPointConfiguration.CertificateTypes.Store,
@@ -77,6 +78,7 @@ namespace Hills.IdentityServer4.Deployment
         }
 
         public static List<Client> Clients = new List<Client>();
+        public static List<UserIdentityRoleConfiguration> Roles = new List<UserIdentityRoleConfiguration>();
         public static List<EndPointConfiguration> EndPoints = new List<EndPointConfiguration>();
         public static List<EndPointConfiguration> EndPointsAdmin = new List<EndPointConfiguration>();
 

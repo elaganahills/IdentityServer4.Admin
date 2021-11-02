@@ -1,5 +1,4 @@
 {
-
   "ConnectionStrings": {
     "ConfigurationDbConnection": "Data Source=.\\SQLEXPRESS;Initial Catalog=IdentityServer4Admin;Integrated Security=True;MultipleActiveResultSets=True",
     "PersistedGrantDbConnection": "Data Source=.\\SQLEXPRESS;Initial Catalog=IdentityServer4Admin;Integrated Security=True;MultipleActiveResultSets=True",
@@ -29,30 +28,16 @@
     }
   ],
   "ActiveDirectoryConfiguration": {
-    "Enabled": true,
-    "Server": "lan1hq.com.au",
-    "SearchBaseDN": "dc=mylab,dc=local",
+    "Enabled": false,
+    "Server": "",
+    "SearchBaseDN": "",
     "WindowsAutentiction": false,
-    "Username": "manny",
-    "Password": "Hills2020!",
-    "LoadAttributes": false,
-    "UserAtributes": [ "hhsUserAttribute1", "hhsUserAttribute2" ],
-    "GroupAtributes": [ "hhsGroupAttribute1", "hhsGroupAttribute2" ],
-    "Port": 389,
-    "IdentityServerAdminRole": "IdentityServerAdmin"
-  },
-  "ActiveDirectoryConfiguration1": {
-    "Enabled": true,
-    "Server": "7.103.222.179",
-    "SearchBaseDN": "dc=mylab,dc=local",
-    "WindowsAutentiction": false,
-    "Username": "jclaudius",
-    "Password": "Hills101",
+    "Username": "",
+    "Password": "",
     "HHSOID": "",
-    "LoadAttributes": false,
-    "UserAtributes": [ "hhsUserAttribute1", "hhsUserAttribute2" ],
-    "GroupAtributes": [ "hhsGroupAttribute1", "hhsGroupAttribute2" ],
+    "LoadAtributes": false,
+    "AtributesStartFilter": "",
     "Port": 389,
-    "IdentityServerAdminRole": "IdentityServerAdmin"
+    "IdentityServerAdminRole": ""
   }
 }
