@@ -19,7 +19,7 @@ namespace Hills.IdentityServer4.Deployment.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -121,7 +121,7 @@ namespace Hills.IdentityServer4.Deployment.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\test\stage1\IdentityServer4.Admin\src\Skoruba.IdentityServer4.Admin\bin\Release\net5.0\publish\Hills.IdentityServer4.Admin.exe.
+        ///   Looks up a localized string similar to C:\Projects\NewGen\IdentityServer4.Admin\src\Skoruba.IdentityServer4.Admin\bin\Release\net6.0\publish\Hills.IdentityServer4.Admin.exe.
         /// </summary>
         internal static string Test_IdentityServer4AdminPath {
             get {
@@ -130,7 +130,7 @@ namespace Hills.IdentityServer4.Deployment.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\test\stage1\IdentityServer4.Admin\src\Skoruba.IdentityServer4.STS.Identity\bin\Release\net5.0\publish\Hills.IdentityServer4.STS.Identity.exe.
+        ///   Looks up a localized string similar to C:\Projects\NewGen\IdentityServer4.Admin\src\Skoruba.IdentityServer4.STS.Identity\bin\Release\net6.0\publish\Hills.IdentityServer4.STS.Identity.exe.
         /// </summary>
         internal static string Test_IdentityServer4Path {
             get {

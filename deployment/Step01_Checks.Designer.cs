@@ -121,8 +121,7 @@ namespace Hills.IdentityServer4.Deployment
             // 
             // Step01_Checks
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(884, 661);
             this.Controls.Add(this.taskUserRoles);
             this.Controls.Add(this.taskOperaPath);
