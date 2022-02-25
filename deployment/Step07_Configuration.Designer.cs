@@ -163,7 +163,7 @@ namespace Hills.IdentityServer4.Deployment
             this.taskOpenBrowser.TabIndex = 9;
             this.taskOpenBrowser.Title = "[Title]";
             // 
-            // Step05_Configuration
+            // Step07_Configuration
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(884, 661);
@@ -179,8 +179,10 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.taskInstallServiceAdmin);
             this.Controls.Add(this.taskInstallService);
             this.Controls.Add(this.taskWriteConfigFile);
+            this.EnableNext = true;
             this.EnablePrevious = true;
-            this.Name = "Step05_Configuration";
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Name = "Step07_Configuration";
             this.Text = "Step05_Configuration";
             this.Title = "Ready for configuration and final installation.";
             this.Load += new System.EventHandler(this.Step05_Configuration_Load);

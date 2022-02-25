@@ -74,6 +74,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.ucEndPointsEditor);
             this.EnableNext = true;
             this.EnablePrevious = true;
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Step04_EndPoints";
             this.Text = "Step03_EndPoints";
             this.Title = "Service end points";

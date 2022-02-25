@@ -92,6 +92,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.taskRemoveService);
             this.EnableNext = true;
             this.EnablePrevious = true;
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Uninstall";
             this.Text = "Uninstall";
             this.Title = "Initial uninstallation procedure steps. To continue close this window.";

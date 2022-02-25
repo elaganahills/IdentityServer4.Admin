@@ -11,6 +11,7 @@ namespace Skoruba.IdentityServer4.Shared.Configuration.Configuration
         public string Server { get; set; }
         public string SearchBaseDN { get; set; }
         public bool WindowsAutentication { get; set; }
+        public bool UseSecureSocketLayer { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
 
@@ -20,5 +21,10 @@ namespace Skoruba.IdentityServer4.Shared.Configuration.Configuration
 
         public List<string> UserAttributes { get; set; }
         public List<string> GroupAttributes { get; set; }
+        public bool UseSimpleBind { get; set; }
+        public bool UseNegotiate { get; set; }
+        public bool UseSigning { get; set; }
+        public bool UseSealing { get; set; }
+        public bool UseServerBind { get; set; }
     }
 }

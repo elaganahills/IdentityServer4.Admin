@@ -170,6 +170,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.txtClientSecret);
             this.Controls.Add(this.txtClientName);
             this.Controls.Add(this.txtClientId);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "EditConfiguredService";
             this.Text = "EditConfiguredService";
             this.Load += new System.EventHandler(this.EditConfiguredService_Load);

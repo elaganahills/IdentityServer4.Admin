@@ -122,6 +122,34 @@
           "roles",
           "hills_view_api"
         ]
+      },
+      {
+        "ClientId": "hills_remotecancel",
+        "ClientName": "hills_remotecancel",
+        "UpdateAccessTokenClaimsOnRefresh": true,
+        "AllowOfflineAccess": true,
+        "AllowedGrantTypes": [
+          "authorization_code"
+        ],
+        "RequirePkce": true,
+        "RequireClientSecret": false,
+        "RedirectUris": [
+          "https://localhost:6040",
+          "https://localhost:6040/silent-renew.html"
+        ],
+        "PostLogoutRedirectUris": [
+          "https://localhost:6040"
+        ],
+        "AllowedCorsOrigins": [
+          "https://localhost:6040"
+        ],
+        "AllowedScopes": [
+          "openid",
+          "email",
+          "profile",
+          "roles",
+          "hills_remotecancel_api"
+        ]
       }
 
     ]

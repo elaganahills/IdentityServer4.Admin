@@ -14,4 +14,15 @@ namespace Skoruba.IdentityServer4.STS.Identity.Configuration
         public OtherConfiguration OtherConfiguration { get; set; } = new OtherConfiguration();
 
     }
+
+    public class RootConfigurationTest : IRootConfiguration
+    {
+        public AdminConfiguration AdminConfiguration { get; set;  } 
+        public RegisterConfiguration RegisterConfiguration { get; set; }
+
+        public ActiveDirectoryConfiguration ActiveDirectoryConfiguration { get; set; }
+
+        public OtherConfiguration OtherConfiguration { get; set; }
+
+    }
 }

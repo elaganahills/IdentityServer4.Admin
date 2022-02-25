@@ -4,8 +4,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyVersion>0.0.0.8</AssemblyVersion>
-    <FileVersion>0.0.0.8</FileVersion>
+    <AssemblyVersion>0.0.0.10</AssemblyVersion>
+    <FileVersion>0.0.0.9</FileVersion>
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -13,9 +13,11 @@
     <ProjectReference Include="..\..\Hills.Monitoring\Hills.Extensions\Hills.Extensions.csproj" />
     <ProjectReference Include="..\src\Skoruba.IdentityServer4.Admin.EntityFramework.Configuration\Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.csproj" />
     <ProjectReference Include="..\src\Skoruba.IdentityServer4.Shared.Configuration\Skoruba.IdentityServer4.Shared.Configuration.csproj" />
+    <ProjectReference Include="..\src\Skoruba.IdentityServer4.STS.Identity\Skoruba.IdentityServer4.STS.Identity.csproj" />
   </ItemGroup>
-
+ <!--
   <ItemGroup>
+   
     <Compile Update="EditRole.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -31,7 +33,7 @@
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
-
+-->
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -59,6 +61,7 @@
   
   <ItemGroup>
     <PackageReference Include="IdentityServer4.Storage" Version="4.1.2" />
+    <PackageReference Include="TextCopy" Version="6.1.0" />
   </ItemGroup>
 
   <ItemGroup>

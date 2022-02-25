@@ -121,8 +121,7 @@ namespace Hills.IdentityServer4.Deployment
             // 
             // Step01_Checks
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(884, 661);
             this.Controls.Add(this.taskUserRoles);
             this.Controls.Add(this.taskOperaPath);
@@ -134,6 +133,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.taskCurrentUser);
             this.EnableNext = true;
             this.EnablePrevious = true;
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Step01_Checks";
             this.Text = "Step01_Checks";

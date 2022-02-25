@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-      <AssemblyVersion>0.0.0.8</AssemblyVersion>
-      <FileVersion>0.0.0.8</FileVersion>
+      <AssemblyVersion>0.0.0.10</AssemblyVersion>
+      <FileVersion>0.0.0.9</FileVersion>
         <Authors>Emanuele Lagana</Authors>
         <UserSecretsId>9c91d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
         <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>

@@ -1,7 +1,6 @@
-﻿
-namespace Hills.IdentityServer4.Deployment
+﻿namespace Hills.IdentityServer4.Deployment
 {
-    partial class Step08_End
+    partial class ActiveDirectoryTest
     {
         /// <summary>
         /// Required designer variable.
@@ -29,23 +28,10 @@ namespace Hills.IdentityServer4.Deployment
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // Step08_End
-            // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(884, 661);
-            this.EnableNext = true;
-            this.EnablePrevious = true;
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LabeleNext = "Close";
-            this.Name = "Step08_End";
-            this.Text = "Step06_End";
-            this.Title = "Configuration and installation completed succesfully.";
-            this.Load += new System.EventHandler(this.Step06_End_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            this.components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Text = "ActiveDirectoryTest";
         }
 
         #endregion

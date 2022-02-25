@@ -85,7 +85,9 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.chkSqlConnectionForConfiguration);
             this.Controls.Add(this.sqlconnConfig);
             this.Controls.Add(this.sqlconnDefault);
+            this.EnableNext = true;
             this.EnablePrevious = true;
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Step02_SqlConnection";
             this.Text = "Step02_SqlConnection";
             this.Title = "Microsoft SQL Server connection settings. Connection must be succesfully tested t" +

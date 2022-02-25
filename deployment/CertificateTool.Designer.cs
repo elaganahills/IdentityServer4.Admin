@@ -93,8 +93,7 @@ namespace Hills.IdentityServer4.Deployment
             // 
             // CertificateTool
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(636, 149);
             this.Controls.Add(this.cmdCreate);
             this.Controls.Add(this.cmdFind);
@@ -102,6 +101,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtAlternativeNames);
             this.Controls.Add(this.txtDNS);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "CertificateTool";
             this.Text = "Certificate Tool";
             this.ResumeLayout(false);

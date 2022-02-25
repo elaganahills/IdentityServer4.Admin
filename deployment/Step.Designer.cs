@@ -98,6 +98,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cmdPrevious);
             this.Controls.Add(this.cmdNext);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Step";
             this.Text = "Step";

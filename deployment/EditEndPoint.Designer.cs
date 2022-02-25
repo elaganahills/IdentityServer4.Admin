@@ -151,10 +151,10 @@ namespace Hills.IdentityServer4.Deployment
             this.chkHttps.UseVisualStyleBackColor = true;
             this.chkHttps.CheckedChanged += new System.EventHandler(this.chkHttps_CheckedChanged);
             // 
-            // txtFile
+            // txtFileName
             // 
             this.txtFileName.Location = new System.Drawing.Point(125, 186);
-            this.txtFileName.Name = "txtFile";
+            this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(274, 23);
             this.txtFileName.TabIndex = 7;
             // 
@@ -229,6 +229,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.txtFileName);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtPort);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "EditEndPoint";
             this.Text = "EditEndPoint";

@@ -57,7 +57,17 @@ namespace Hills.IdentityServer4.Deployment
             this.txtTestUsername = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.txtIdentityServerAdminRole = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.chkSimpleBind = new System.Windows.Forms.CheckBox();
+            this.chkNegotiate = new System.Windows.Forms.CheckBox();
+            this.chkSecureSocketLayer = new System.Windows.Forms.CheckBox();
+            this.chkSigning = new System.Windows.Forms.CheckBox();
+            this.chkSealing = new System.Windows.Forms.CheckBox();
+            this.chkServerBind = new System.Windows.Forms.CheckBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.lnkCompyLastResult = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label6
@@ -78,7 +88,7 @@ namespace Hills.IdentityServer4.Deployment
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(181, 257);
+            this.txtUsername.Location = new System.Drawing.Point(181, 286);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(196, 23);
             this.txtUsername.TabIndex = 5;
@@ -86,7 +96,7 @@ namespace Hills.IdentityServer4.Deployment
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(115, 260);
+            this.label1.Location = new System.Drawing.Point(115, 289);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 15);
             this.label1.TabIndex = 15;
@@ -94,7 +104,7 @@ namespace Hills.IdentityServer4.Deployment
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(181, 286);
+            this.txtPassword.Location = new System.Drawing.Point(181, 315);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(196, 23);
             this.txtPassword.TabIndex = 6;
@@ -102,7 +112,7 @@ namespace Hills.IdentityServer4.Deployment
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(118, 289);
+            this.label2.Location = new System.Drawing.Point(118, 318);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 15);
             this.label2.TabIndex = 15;
@@ -161,7 +171,7 @@ namespace Hills.IdentityServer4.Deployment
             // 
             // txtUserAtributes
             // 
-            this.txtUserAtributes.Location = new System.Drawing.Point(181, 344);
+            this.txtUserAtributes.Location = new System.Drawing.Point(181, 373);
             this.txtUserAtributes.Name = "txtUserAtributes";
             this.txtUserAtributes.Size = new System.Drawing.Size(424, 23);
             this.txtUserAtributes.TabIndex = 8;
@@ -169,7 +179,7 @@ namespace Hills.IdentityServer4.Deployment
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(97, 347);
+            this.label5.Location = new System.Drawing.Point(97, 376);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 15);
             this.label5.TabIndex = 15;
@@ -178,7 +188,7 @@ namespace Hills.IdentityServer4.Deployment
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(94, 318);
+            this.label8.Location = new System.Drawing.Point(94, 347);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(85, 15);
             this.label8.TabIndex = 19;
@@ -186,7 +196,7 @@ namespace Hills.IdentityServer4.Deployment
             // 
             // chkLoadAtributes
             // 
-            this.chkLoadAtributes.Location = new System.Drawing.Point(181, 315);
+            this.chkLoadAtributes.Location = new System.Drawing.Point(181, 344);
             this.chkLoadAtributes.Name = "chkLoadAtributes";
             this.chkLoadAtributes.Size = new System.Drawing.Size(104, 23);
             this.chkLoadAtributes.TabIndex = 7;
@@ -195,7 +205,7 @@ namespace Hills.IdentityServer4.Deployment
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(87, 376);
+            this.label9.Location = new System.Drawing.Point(87, 405);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(88, 15);
             this.label9.TabIndex = 21;
@@ -203,14 +213,14 @@ namespace Hills.IdentityServer4.Deployment
             // 
             // txtGroupAtributes
             // 
-            this.txtGroupAtributes.Location = new System.Drawing.Point(181, 373);
+            this.txtGroupAtributes.Location = new System.Drawing.Point(181, 402);
             this.txtGroupAtributes.Name = "txtGroupAtributes";
             this.txtGroupAtributes.Size = new System.Drawing.Size(424, 23);
             this.txtGroupAtributes.TabIndex = 9;
             // 
             // cmdTestConnection
             // 
-            this.cmdTestConnection.Location = new System.Drawing.Point(466, 543);
+            this.cmdTestConnection.Location = new System.Drawing.Point(466, 589);
             this.cmdTestConnection.Name = "cmdTestConnection";
             this.cmdTestConnection.Size = new System.Drawing.Size(139, 23);
             this.cmdTestConnection.TabIndex = 12;
@@ -241,7 +251,7 @@ namespace Hills.IdentityServer4.Deployment
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.txtTestPassword);
             this.groupBox1.Controls.Add(this.txtTestUsername);
-            this.groupBox1.Location = new System.Drawing.Point(53, 442);
+            this.groupBox1.Location = new System.Drawing.Point(53, 471);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(552, 95);
             this.groupBox1.TabIndex = 25;
@@ -283,7 +293,7 @@ namespace Hills.IdentityServer4.Deployment
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(33, 405);
+            this.label13.Location = new System.Drawing.Point(33, 434);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(142, 15);
             this.label13.TabIndex = 27;
@@ -291,15 +301,113 @@ namespace Hills.IdentityServer4.Deployment
             // 
             // txtIdentityServerAdminRole
             // 
-            this.txtIdentityServerAdminRole.Location = new System.Drawing.Point(181, 402);
+            this.txtIdentityServerAdminRole.Location = new System.Drawing.Point(181, 431);
             this.txtIdentityServerAdminRole.Name = "txtIdentityServerAdminRole";
             this.txtIdentityServerAdminRole.Size = new System.Drawing.Size(424, 23);
             this.txtIdentityServerAdminRole.TabIndex = 26;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(128, 260);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(49, 15);
+            this.label14.TabIndex = 29;
+            this.label14.Text = "Options";
+            // 
+            // chkSimpleBind
+            // 
+            this.chkSimpleBind.AutoSize = true;
+            this.chkSimpleBind.Location = new System.Drawing.Point(3, 3);
+            this.chkSimpleBind.Name = "chkSimpleBind";
+            this.chkSimpleBind.Size = new System.Drawing.Size(86, 19);
+            this.chkSimpleBind.TabIndex = 28;
+            this.chkSimpleBind.Text = "SimpleBind";
+            this.chkSimpleBind.UseVisualStyleBackColor = true;
+            // 
+            // chkNegotiate
+            // 
+            this.chkNegotiate.AutoSize = true;
+            this.chkNegotiate.Location = new System.Drawing.Point(95, 3);
+            this.chkNegotiate.Name = "chkNegotiate";
+            this.chkNegotiate.Size = new System.Drawing.Size(78, 19);
+            this.chkNegotiate.TabIndex = 28;
+            this.chkNegotiate.Text = "Negotiate";
+            this.chkNegotiate.UseVisualStyleBackColor = true;
+            // 
+            // chkSecureSocketLayer
+            // 
+            this.chkSecureSocketLayer.AutoSize = true;
+            this.chkSecureSocketLayer.Location = new System.Drawing.Point(179, 3);
+            this.chkSecureSocketLayer.Name = "chkSecureSocketLayer";
+            this.chkSecureSocketLayer.Size = new System.Drawing.Size(124, 19);
+            this.chkSecureSocketLayer.TabIndex = 28;
+            this.chkSecureSocketLayer.Text = "SecureSocketLayer";
+            this.chkSecureSocketLayer.UseVisualStyleBackColor = true;
+            // 
+            // chkSigning
+            // 
+            this.chkSigning.AutoSize = true;
+            this.chkSigning.Location = new System.Drawing.Point(309, 3);
+            this.chkSigning.Name = "chkSigning";
+            this.chkSigning.Size = new System.Drawing.Size(66, 19);
+            this.chkSigning.TabIndex = 28;
+            this.chkSigning.Text = "Signing";
+            this.chkSigning.UseVisualStyleBackColor = true;
+            this.chkSigning.CheckedChanged += new System.EventHandler(this.chkSigning_CheckedChanged);
+            // 
+            // chkSealing
+            // 
+            this.chkSealing.AutoSize = true;
+            this.chkSealing.Location = new System.Drawing.Point(381, 3);
+            this.chkSealing.Name = "chkSealing";
+            this.chkSealing.Size = new System.Drawing.Size(64, 19);
+            this.chkSealing.TabIndex = 28;
+            this.chkSealing.Text = "Sealing";
+            this.chkSealing.UseVisualStyleBackColor = true;
+            // 
+            // chkServerBind
+            // 
+            this.chkServerBind.AutoSize = true;
+            this.chkServerBind.Location = new System.Drawing.Point(451, 3);
+            this.chkServerBind.Name = "chkServerBind";
+            this.chkServerBind.Size = new System.Drawing.Size(82, 19);
+            this.chkServerBind.TabIndex = 28;
+            this.chkServerBind.Text = "ServerBind";
+            this.chkServerBind.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.chkSimpleBind);
+            this.flowLayoutPanel1.Controls.Add(this.chkNegotiate);
+            this.flowLayoutPanel1.Controls.Add(this.chkSecureSocketLayer);
+            this.flowLayoutPanel1.Controls.Add(this.chkSigning);
+            this.flowLayoutPanel1.Controls.Add(this.chkSealing);
+            this.flowLayoutPanel1.Controls.Add(this.chkServerBind);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(181, 257);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(566, 23);
+            this.flowLayoutPanel1.TabIndex = 30;
+            // 
+            // lnkCompyLastResult
+            // 
+            this.lnkCompyLastResult.AutoSize = true;
+            this.lnkCompyLastResult.Enabled = false;
+            this.lnkCompyLastResult.Location = new System.Drawing.Point(276, 593);
+            this.lnkCompyLastResult.Name = "lnkCompyLastResult";
+            this.lnkCompyLastResult.Size = new System.Drawing.Size(155, 15);
+            this.lnkCompyLastResult.TabIndex = 31;
+            this.lnkCompyLastResult.TabStop = true;
+            this.lnkCompyLastResult.Text = "Copy last result to clipboard";
+            this.lnkCompyLastResult.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkCompyLastResult_LinkClicked);
             // 
             // Step03_ActiveDirectory
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(884, 661);
+            this.Controls.Add(this.lnkCompyLastResult);
+            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.txtIdentityServerAdminRole);
             this.Controls.Add(this.groupBox1);
@@ -355,8 +463,13 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.SetChildIndex(this.groupBox1, 0);
             this.Controls.SetChildIndex(this.txtIdentityServerAdminRole, 0);
             this.Controls.SetChildIndex(this.label13, 0);
+            this.Controls.SetChildIndex(this.label14, 0);
+            this.Controls.SetChildIndex(this.flowLayoutPanel1, 0);
+            this.Controls.SetChildIndex(this.lnkCompyLastResult, 0);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -391,5 +504,14 @@ namespace Hills.IdentityServer4.Deployment
         private System.Windows.Forms.TextBox txtTestUsername;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtIdentityServerAdminRole;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.CheckBox chkSimpleBind;
+        private System.Windows.Forms.CheckBox chkNegotiate;
+        private System.Windows.Forms.CheckBox chkSecureSocketLayer;
+        private System.Windows.Forms.CheckBox chkSigning;
+        private System.Windows.Forms.CheckBox chkSealing;
+        private System.Windows.Forms.CheckBox chkServerBind;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.LinkLabel lnkCompyLastResult;
     }
 }

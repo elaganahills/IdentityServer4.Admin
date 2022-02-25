@@ -29,6 +29,11 @@ namespace Hills.IdentityServer4.Deployment
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+
+            //var res = ActiveDirectory.CheckConnection("7.103.148.49", 389, false, false, "Administrator", "Merlon99", "Administrator", "Merlon99");
+            //var res1 = ActiveDirectory.CheckConnection("WIN-KJITMKTSORO", 636, false, true, "Administrator", "Merlon99", "Administrator", "Merlon99");
+
+
             PowerShellHelper.ModulesPath = Helper.GetExecutableDirectory() + "PowerShellModules\\";
 
             //load some data from files

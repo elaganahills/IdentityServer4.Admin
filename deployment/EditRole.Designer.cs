@@ -87,6 +87,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtActiveDirectoryRole);
             this.Controls.Add(this.txtRole);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "EditRole";
             this.Text = "EditRole";
             this.Load += new System.EventHandler(this.EditRole_Load);

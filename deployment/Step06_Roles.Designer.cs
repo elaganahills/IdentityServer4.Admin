@@ -104,6 +104,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.lstRoles);
             this.EnableNext = true;
             this.EnablePrevious = true;
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Step06_Roles";
             this.Text = "Step06_Roles";
             this.Title = "Configure the following roles.";
