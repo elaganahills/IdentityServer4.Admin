@@ -285,3 +285,4 @@ appsettings.*.json
 
 /shared/nginx/certs/
 installer/*.exe
+installer/Hills.IdentityServer.nsi.bak

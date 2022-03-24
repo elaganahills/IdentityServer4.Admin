@@ -477,41 +477,41 @@ namespace Hills.IdentityServer4.Deployment
 
         #endregion
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtServer;
-        private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox chkEnable;
-        private System.Windows.Forms.CheckBox chkWindowsAutentiction;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtSearchBaseDN;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtUserAtributes;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox chkLoadAtributes;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtGroupAtributes;
         private System.Windows.Forms.Button cmdTestConnection;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtPort;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.LinkLabel lnkCompyLastResult;
+        private System.Windows.Forms.TextBox txtServer;
+        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.CheckBox chkEnable;
+        private System.Windows.Forms.CheckBox chkWindowsAutentiction;
+        private System.Windows.Forms.TextBox txtSearchBaseDN;
+        private System.Windows.Forms.TextBox txtUserAtributes;
+        private System.Windows.Forms.CheckBox chkLoadAtributes;
+        private System.Windows.Forms.TextBox txtGroupAtributes;
+        private System.Windows.Forms.TextBox txtPort;
         private System.Windows.Forms.TextBox txtTestPassword;
         private System.Windows.Forms.TextBox txtTestUsername;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtIdentityServerAdminRole;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.CheckBox chkSimpleBind;
         private System.Windows.Forms.CheckBox chkNegotiate;
         private System.Windows.Forms.CheckBox chkSecureSocketLayer;
         private System.Windows.Forms.CheckBox chkSigning;
         private System.Windows.Forms.CheckBox chkSealing;
         private System.Windows.Forms.CheckBox chkServerBind;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.LinkLabel lnkCompyLastResult;
     }
 }

@@ -129,9 +129,15 @@
         "UpdateAccessTokenClaimsOnRefresh": true,
         "AllowOfflineAccess": true,
         "AllowedGrantTypes": [
-          "authorization_code"
+          "authorization_code",
+          "client_credentials"
         ],
         "RequirePkce": true,
+        "ClientSecrets": [
+          {
+            "Value": "Hills2020"
+          }
+        ],
         "RequireClientSecret": false,
         "RedirectUris": [
           "https://localhost:6040",

@@ -94,123 +94,40 @@ namespace Hills.IdentityServer4.Deployment
         {
             if (chkEnable.Checked)
             {
+                EnableNext = false;
+
                 if (string.IsNullOrEmpty(txtIdentityServerAdminRole.Text))
                 {
-                    MessageBox.Show("IdentityServer Admin Role is required.", "Active Directory connection test", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    EnableNext = false;
+                    MessageBox.Show("IdentityServer Admin Role is required.", "Active Directory connection test", MessageBoxButtons.OK, MessageBoxIcon.Error);                
                     return;
                 }
 
-                
-                try
+                var adc = new ActiveDirectoryConfiguration()
                 {
-                    var sb = new StringBuilder();
+                    Enabled = true,
+                    Server = txtServer.Text,
+                    Port = int.Parse(txtPort.Text),
+                    SearchBaseDN = txtSearchBaseDN.Text,
+                    WindowsAutentication = chkWindowsAutentiction.Checked,
+                    UseSimpleBind = chkSimpleBind.Checked,
+                    UseNegotiate = chkNegotiate.Checked,
+                    UseSecureSocketLayer = chkSecureSocketLayer.Checked,
+                    UseSigning = chkSigning.Checked,
+                    UseSealing = chkSealing.Checked,
+                    UseServerBind = chkServerBind.Checked,
+                    Username = txtUsername.Text,
+                    Password = txtPassword.Text,
+                    LoadAttributes = chkLoadAtributes.Checked,
+                    UserAttributes = txtUserAtributes.Text.Split(",;".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList(),
+                    GroupAttributes = txtGroupAtributes.Text.Split(",;".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList(),
 
-                    var res = ActiveDirectory.CheckConnection(txtServer.Text, int.Parse(txtPort.Text), chkWindowsAutentiction.Checked,
-                    chkSimpleBind.Checked, chkNegotiate.Checked, chkSecureSocketLayer.Checked, chkSigning.Checked, chkSealing.Checked, chkServerBind.Checked
-                    , txtUsername.Text, txtPassword.Text, txtTestUsername.Text, txtTestPassword.Text, txtSearchBaseDN.Text);
+                };
 
-                    if (res.Succesfull)
-                        sb.AppendLine("CheckConnection: " + res.Details);
-                    else
-                        sb.AppendLine("CheckConnection: [error] " + res.Details);
-                    //MessageBox.Show(res.Details + ((res.Succesfull) ? ". Trying to retrive user info next." : ""), "Active Directory connection test", MessageBoxButtons.OK, res.Succesfull ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-
-                    //retrive user info
-                    var aa = new RootConfigurationTest();
-                    aa.ActiveDirectoryConfiguration = new ActiveDirectoryConfiguration()
-                    {
-                        Enabled = true,
-                        Server = txtServer.Text,
-                        Port = int.Parse(txtPort.Text),
-                        SearchBaseDN = txtSearchBaseDN.Text,
-                        WindowsAutentication = chkWindowsAutentiction.Checked,
-                        UseSimpleBind = chkSimpleBind.Checked,
-                        UseNegotiate = chkNegotiate.Checked,
-                        UseSecureSocketLayer = chkSecureSocketLayer.Checked,
-                        UseSigning = chkSigning.Checked,
-                        UseSealing = chkSealing.Checked,
-                        UseServerBind = chkServerBind.Checked,
-                        Username = txtUsername.Text,
-                        Password = txtPassword.Text,
-                        LoadAttributes = chkLoadAtributes.Checked,
-                        UserAttributes = txtUserAtributes.Text.Split(",;".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList(),
-                        GroupAttributes = txtGroupAtributes.Text.Split(",;".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList(),
-
-                    };
-
-                    
-                    var acs = new ActiveDirectoryService(aa);
-                    DateTime ts;
-
-                    sb.AppendLine();
-                    try
-                    {
-                        ts = DateTime.Now;
-                        var s = acs.TestPrincipalSearcher(txtTestUsername.Text);
-                        sb.AppendLine(String.Format("TestPrincipalSearcher({0}): {1}", (int) (DateTime.Now - ts).TotalMilliseconds , s));
-                    }
-                    catch (Exception ex)
-                    {
-                        sb.AppendLine("TestPrincipalSearcher: [error]: " + ex.Message);
-                    }
-
-                    sb.AppendLine();
-                    try
-                    {
-                        ts = DateTime.Now;
-                        var s = acs.TestFindBy(txtTestUsername.Text);
-                        sb.AppendLine(String.Format("TestFindBy({0}): {1}", (int) (DateTime.Now - ts).TotalMilliseconds, s));
-                    }
-                    catch (Exception ex)
-                    {
-                        sb.AppendLine("TestFindBy: [error]: " + ex.Message);
-                    }
-
-                    sb.AppendLine();
-                    try
-                    {
-                        ts = DateTime.Now;
-                        var s = acs.TestFindAllGroups();
-                        sb.AppendLine(String.Format("TestFindBy({0}): {1}", (int) (DateTime.Now - ts).TotalMilliseconds, s));
-                    }
-                    catch (Exception ex)
-                    {
-                        sb.AppendLine("TestFindBy: [error]: " + ex.Message);
-                    }
-
-                    sb.AppendLine();
-                    try
-                    {
-                        ts = DateTime.Now;
-                        var user = acs.GetAdUserAsync(txtTestUsername.Text, false).Result;
-                        sb.AppendLine(String.Format("TestGetAdUserAsync({0}): {1}", (int) (DateTime.Now - ts).TotalMilliseconds, Newtonsoft.Json.JsonConvert.SerializeObject(user)));
-                    }
-                    catch (Exception ex)
-                    {
-                        sb.AppendLine("TestGetAdUserAsync: [error]: " + ex.Message);
-                    }
-
-                    var ress = sb.ToString();
-                    lastTestResult = ress;
-                    lnkCompyLastResult.Enabled= true;
-                    if (ress.Contains("[error]"))
-                        throw new Exception(ress);
-
-                    
-                    MessageBox.Show("Test completed succesfully: " + ress, "Active Directory user info test", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                if (new ActiveDirectoryTest(adc, txtTestUsername.Text,txtTestPassword.Text).ShowDialog() == DialogResult.OK)
                     EnableNext = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Active Directory user info test", MessageBoxButtons.OK, MessageBoxIcon.Error);                       
-                }
-                   
-            } else
-            {
-                EnableNext = true;
+
             }
+              
         }
 
         private void chkEnable_CheckedChanged(object sender, EventArgs e)
