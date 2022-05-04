@@ -26,21 +26,26 @@ namespace Skoruba.IdentityServer4.STS.Identity.Services
 
         public override async Task<SignInResult> PasswordSignInAsync(string userName, string password, bool isPersistent, bool lockoutOnFailure)
         {
-            if (await _activedirservice.ValidateCredentialsAsync(userName, password))
+            try
             {
+                if (await _activedirservice.ValidateCredentialsAsync(userName, password))
+                {
 
-                var user = await _userResolver.GetUserAsync(userName);
-                await base.SignInAsync(user, isPersistent: lockoutOnFailure);
-                return SignInResult.Success;
-            } else
-            {
-                var aduser = await _activedirservice.GetUserAsync(userName);
-                if (aduser == null)
-                    return SignInResult.Failed;
-                else if (aduser.IsAccountLockedOut())
-                    return SignInResult.LockedOut;
+                    var user = await _userResolver.GetUserAsync(userName);
+                    await base.SignInAsync(user, isPersistent: lockoutOnFailure);
+                    return SignInResult.Success;
+                }
+
+                return SignInResult.Failed;
             }
-            return SignInResult.Failed;
+            catch (Exception ex)
+            {
+                if (ex.Message.ToLower().Contains("locked"))
+                    return SignInResult.LockedOut;
+                else
+                    return SignInResult.Failed;
+            }
+                     
         }
 
     }

@@ -13,7 +13,7 @@
     {
       "Name": "Default",
       "IpAddress": "0.0.0.0",
-      "Port": 6013,
+      "Port": 6010,
       "UseHttps": true,
       "Certificate_Type": 2,
       "Certificate_StoreName": "Root",
@@ -24,16 +24,16 @@
     }
   ],
   "ActiveDirectoryConfiguration": {
-    "Enabled": false,
-    "Server": "",
+    "Enabled": true,
+    "Server": "7.103.222.179",
     "SearchBaseDN": "",
     "WindowsAutentiction": false,
-    "Username": "",
-    "Password": "",
+    "Username": "Administrator",
+    "Password": "Merlon99",
     "HHSOID": "",
     "LoadAtributes": false,
     "AtributesStartFilter": "",
     "Port": 389,
-    "IdentityServerAdminRole": ""
+    "IdentityServerAdminRole": "Schema Admins"
   }
 }

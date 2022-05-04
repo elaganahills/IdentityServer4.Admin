@@ -53,58 +53,21 @@ namespace Hills.IdentityServer4.Deployment
             rct.ActiveDirectoryConfiguration = _adsf;
             var acs = new ActiveDirectoryService(rct);
 
-            //Connection test
+
+            //-------------TEST CONNECTION CREDENTIALS-------------------
             ts = DateTime.Now;
-            var res = ActiveDirectory.CheckConnection(_adsf.Server, _adsf.Port, _adsf.WindowsAutentication,
-                 _adsf.UseSimpleBind, _adsf.UseNegotiate, _adsf.UseSecureSocketLayer, _adsf.UseSigning, _adsf.UseSealing, _adsf.UseServerBind
-                 , _adsf.Username, _adsf.Password, _testUsername, _testPassword, _adsf.SearchBaseDN);
-            
+            var res1 = ActiveDirectory.CheckConnection(_adsf.Server, _adsf.Port, _adsf.WindowsAutentication, _adsf.Username, _adsf.Password);
+            var res2 = ActiveDirectory.CheckConnection(_adsf.Server, _adsf.Port, _adsf.WindowsAutentication, _testUsername, _testPassword);
+
             lblCheckConnectionDuration.Text = "Duration: " + (DateTime.Now - ts).ToPrettyFormat();
-            txtCheckConnectionResult.Text = ((res.Succesfull)? "[success]": "[error]") + ("\r\n" + res.Details);
-            if (!res.Succesfull)
+            txtCheckConnectionResult.Text = "Search user: " + ((res1.Succesfull)? "[success]": "[error]") + ("\r\n" + res1.Details);
+            txtCheckConnectionResult.Text += "\r\nTest user: " + ((res2.Succesfull) ? "[success]" : "[error]") + ("\r\n" + res2.Details);
+            if (!res1.Succesfull || !res2.Succesfull)
                 error = true;
-
-            ts = DateTime.Now;
-            try
-            {                
-                var s = acs.TestPrincipalSearcher(_testUsername);
-                txtTestPrincipalSearcherResult.Text = "[success]\r\n" + s;
-            }
-            catch (Exception ex)
-            {
-                txtTestPrincipalSearcherResult.Text = "[error]\r\n" + ex.Message;
-                error = true;
-            }
-            lblTestPrincipalSearcherDuration.Text = "Duration: " + (DateTime.Now - ts).ToPrettyFormat();
+            //--------------------------------------------------------------
 
 
-            ts = DateTime.Now;
-            try
-            {
-                var s = acs.TestFindBy(_testUsername);
-                txtTestFindByResult.Text = "[success]\r\n" + s;
-            }
-            catch (Exception ex)
-            {
-                txtTestFindByResult.Text = "[error]\r\n" + ex.Message;
-                error = true;
-            }
-            lblTestFindByDuration.Text = "Duration: " + (DateTime.Now - ts).ToPrettyFormat();
-
-
-            ts = DateTime.Now;
-            try
-            {
-                var s = acs.TestFindAllGroups();
-                txtTestFindAllGroupsResult.Text = "[success]\r\n" + s;
-            }
-            catch (Exception ex)
-            {
-                txtTestFindAllGroupsResult.Text = "[error]\r\n" + ex.Message;
-                error = true;
-            }
-            lblTestFindAllGroupsDuration.Text = "Duration: " + (DateTime.Now - ts).ToPrettyFormat();
-
+ 
             ts = DateTime.Now;
             try
             {

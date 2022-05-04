@@ -86,12 +86,13 @@ namespace Hills.IdentityServer4.Deployment
         public static List<UserIdentityRoleConfiguration> Roles = new List<UserIdentityRoleConfiguration>();
         public static List<EndPointConfiguration> EndPoints = new List<EndPointConfiguration>();
         public static List<EndPointConfiguration> EndPointsAdmin = new List<EndPointConfiguration>();
+        public static List<string> DnsList =  new List<string>();
 
         public static ActiveDirectoryConfiguration ActiveDirectoryConfiguration { get; set; }
 
         public static SqlConnectionInfo SqlConnection { get; set; }
         public static SqlConnectionInfo SqlConnection_ConfigOnly { get; set; }
-
+        
 
         public static void Close()
         {

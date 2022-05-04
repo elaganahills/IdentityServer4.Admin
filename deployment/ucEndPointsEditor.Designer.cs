@@ -144,13 +144,13 @@ namespace Hills.IdentityServer4.Deployment
             // 
             // ucEndPointsEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.lnkRemove);
             this.Controls.Add(this.lnkEdit);
             this.Controls.Add(this.lnkAdd);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lstEndPoints);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "ucEndPointsEditor";
             this.Size = new System.Drawing.Size(621, 313);
             this.ResumeLayout(false);

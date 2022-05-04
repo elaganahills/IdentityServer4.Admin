@@ -10,6 +10,9 @@ using System.Security.Principal;
 using System.Text;
 using Skoruba.IdentityServer4.STS.Identity.Configuration.Interfaces;
 using Skoruba.IdentityServer4.Shared.Configuration.Configuration;
+using Hills.Extensions;
+using System.DirectoryServices.Protocols;
+using System.Net;
 
 namespace Skoruba.IdentityServer4.STS.Identity.Services
 {
@@ -17,10 +20,11 @@ namespace Skoruba.IdentityServer4.STS.Identity.Services
 
     public interface IActiveDirectoryService
     {
-        Task<UserPrincipal> GetUserAsync(string name);
+        //Task<UserPrincipal> GetUserAsync(string name);
         Task<ActiveDirectoryUser> GetAdUserAsync(string name, bool loadproperties, ActiveDirectoryService.UserFilter filterby = ActiveDirectoryService.UserFilter.Name);
         Task<bool> ValidateCredentialsAsync(string userName, string password);
-        Task<List<GroupPrincipal>> GetUserGroupsAsync(string name);
+        Task<List<ActiveDirectoryGroup>> GetUserGroupsAsync(string name);
+        Task<ActiveDirectoryUser> GetAdUserAsync(string name);
 
     }
 
@@ -37,18 +41,8 @@ namespace Skoruba.IdentityServer4.STS.Identity.Services
         public ActiveDirectoryService(IRootConfiguration rootConfiguration)
         {
             _rootConfiguration = rootConfiguration;
-            //_principalContext = GetContext();
+         
 
-            //DistinguishedDomainName = _adConf.SearchBaseDN;
-            //if (string.IsNullOrEmpty(DistinguishedDomainName))
-            //{
-            //    var sb = new StringBuilder();
-            //    foreach (var dnp in _adConf.Server.Split(".", StringSplitOptions.RemoveEmptyEntries))
-            //        sb.Append("dc=" + dnp + ",");
-
-            //    DistinguishedDomainName = sb.ToString().TrimEnd(',');
-            //}
-            //DistinguishedDomainName = null;
             if (!string.IsNullOrEmpty(_adConf.SearchBaseDN))
                 DistinguishedDomainName = _adConf.SearchBaseDN;
             else
@@ -107,64 +101,51 @@ namespace Skoruba.IdentityServer4.STS.Identity.Services
         DirectoryEntry GetDirectoryEntry()
         {
 
-            if (_adConf.WindowsAutentication)
-                return new DirectoryEntry("LDAP://" + _adConf.Server);
-            else
-                return new DirectoryEntry("LDAP://" + _adConf.Server,
-                _adConf.Username,
-                _adConf.Password);
-        }
+            AuthenticationTypes conopz = 0;
+            if (_adConf.UseSecure)
+                conopz |= AuthenticationTypes.Secure;
+            if (_adConf.UseSecureSocketLayer)
+                conopz |= AuthenticationTypes.SecureSocketsLayer;
+            if (_adConf.UseReadonlyServer)
+                conopz |= AuthenticationTypes.ReadonlyServer;
+            if (_adConf.UseAnonymous)
+                conopz |= AuthenticationTypes.Anonymous;
+            if (_adConf.UseSimpleBind)
+                conopz |= AuthenticationTypes.FastBind;
+            if (_adConf.UseSigning)
+                conopz |= AuthenticationTypes.Signing;
+            if (_adConf.UseSealing)
+                conopz |= AuthenticationTypes.Sealing;
+            if (_adConf.UseDelegation)
+                conopz |= AuthenticationTypes.Delegation;
+            if (_adConf.UseServerBind)
+                conopz |= AuthenticationTypes.ServerBind;
 
-        public string TestPrincipalSearcher(string account)
-        {
-            using (var context = GetContext())
+            string server = "LDAP://" + _adConf.Server + ":" + _adConf.Port;
+
+            if (!DistinguishedDomainName.IsNullOrEmpty())
+                server += "/" + DistinguishedDomainName;
+
+            if (conopz != 0)
+            {                
+                    return new DirectoryEntry(server,
+                    _adConf.Username,
+                    _adConf.Password, conopz);
+            } else
             {
-                using (var searcher = new PrincipalSearcher(new UserPrincipal(context)))
-                {
-
-                    UserPrincipal userSearch = new UserPrincipal(context);
-                    userSearch.SamAccountName = account;
-                    searcher.QueryFilter = userSearch;
-                    var searchResults = searcher.FindAll();
-
-                    List<UserPrincipal> results = new List<UserPrincipal>();
-                    var sb = new StringBuilder();
-                    foreach (Principal p in searchResults)
-                    {
-                        sb.Append(p.SamAccountName + ", ");
-                        results.Add(p as UserPrincipal);
-                    }
-
-                    return results.Count.ToString() + " objects found " + sb.ToString();
-                }
+                if (_adConf.WindowsAutentication)
+                    return new DirectoryEntry(server);
+                else
+                    return new DirectoryEntry(server,
+                    _adConf.Username,
+                    _adConf.Password);
             }
+
+ 
         }
-
-        public string TestFindBy(string name)
+        public async Task<ActiveDirectoryUser> GetAdUserAsync(string name)
         {
-            using (var context = GetContext())
-            {
-                UserPrincipal u = UserPrincipal.FindByIdentity(context, name);
-                return "Information retrived: " + Newtonsoft.Json.JsonConvert.SerializeObject(u, new Newtonsoft.Json.JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore}) ;
-
-            }
-        }
-
-        public String TestFindAllGroups()
-        {
-            var sb = new StringBuilder();
-
-            using (var context = GetContext()) {
-                GroupPrincipal findAllGroups = new GroupPrincipal(context, "*");
-                PrincipalSearcher ps = new PrincipalSearcher(findAllGroups);
-                foreach (Principal group in ps.FindAll())
-                {
-                    sb.AppendLine(Newtonsoft.Json.JsonConvert.SerializeObject(group, new Newtonsoft.Json.JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore }));
-                }
-
-            }
-
-            return sb.ToString();
+            return await GetAdUserAsync(name, false);
         }
 
         public enum UserFilter { Name,Email }
@@ -172,125 +153,108 @@ namespace Skoruba.IdentityServer4.STS.Identity.Services
         {
             var aduser = new ActiveDirectoryUser();
 
-            using (var context = GetContext())
+
+            using (var entry = GetDirectoryEntry())
             {
+                DirectorySearcher mySearcher = new DirectorySearcher(entry);
 
-                UserPrincipal user = UserPrincipal.FindByIdentity(context, name);
-                aduser.Name = user.DisplayName;
-                aduser.SamAccountName = user.SamAccountName;
-                aduser.Email = user.EmailAddress;
+                mySearcher.Filter = "(&(objectClass=user)(|(cn=" + name + ")(sAMAccountName=" + name + ")))";
+                mySearcher.PropertiesToLoad.Add("name");
+                mySearcher.PropertiesToLoad.Add("displayName");
+                mySearcher.PropertiesToLoad.Add("sAMAccountName");
+                mySearcher.PropertiesToLoad.Add("mail");
+                mySearcher.PropertiesToLoad.Add("memberOf");
 
-                if (_adConf.LoadAttributes && _adConf.UserAttributes != null)
+                SearchResult result = mySearcher.FindOne();
+
+                if (result == null)
                 {
-                    var a = user.GetUnderlyingObject() as DirectoryEntry;
-                    foreach (var ua in _adConf.UserAttributes)
-                    {
-                        var po = a.Properties[ua];
-                        if (po != null && po.Value != null)
-                        {
-                            aduser.Claims.Add(new Claim(ua, po.Value.ToString()));
-                            Console.WriteLine(ua + ":" + po.Value.ToString());
-                        }
-                    }
+                    throw new Exception("User not found");
                 }
 
+                DirectoryEntry directoryObject = result.GetDirectoryEntry();
+                aduser.Name = (string)directoryObject.Properties["name"].Value;
+                aduser.SamAccountName = (string)directoryObject.Properties["sAMAccountName"].Value;
+                aduser.Email = (string)directoryObject.Properties["mail"].Value;
 
-                //var groups = GroupPrincipal.FindByIdentity(context, IdentityType.SamAccountName, user.SamAccountName);
-                //groups.lis
-                //using (var searcher = new PrincipalSearcher(user))
-                //{
-                //    searcher.QueryFilter
-
-
-                //    UserPrincipal userSearch = new UserPrincipal(context);
-                //    var g = GroupPrincipal();
-
-                //    userSearch.SamAccountName = account;
-                //    searcher.QueryFilter = ;
-                //    var searchResults = searcher.FindAll();
-
-                //    List<UserPrincipal> results = new List<UserPrincipal>();
-                //    var sb = new StringBuilder();
-                //    foreach (Principal p in searchResults)
-                //    {
-                //        sb.Append(p.SamAccountName + ", ");
-                //        results.Add(p as UserPrincipal);
-                //    }
-
-                //    return results.Count.ToString() + " objects found " + sb.ToString();
-                //}
-
-                //using (var searcher = new DirectorySearcher(new DirectoryEntry("LDAP://" + domainContext.Name)))
-                //{
-                //    searcher.Filter = String.Format("(&(objectCategory=group)(member={0}))", user.DistinguishedName);
-                //    searcher.SearchScope = SearchScope.Subtree;
-                //    searcher.PropertiesToLoad.Add("cn");
-
-                //    foreach (SearchResult entry in searcher.FindAll())
-                //        if (entry.Properties.Contains("cn"))
-                //            result.Add(entry.Properties["cn"][0].ToString());
-                //}
-
-                try
+                var groups = (PropertyValueCollection) directoryObject.Properties["memberOf"];
+                foreach (var group in groups)
                 {
-                    //try to attach groups
-                    foreach (var g in user.GetGroups(GetContext()))
-                    {
-                        var adgroup = new ActiveDirectoryGroup();
-                        adgroup.Name = g.Name;
-
-                        if (_adConf.LoadAttributes && _adConf.GroupAttributes != null)
-                        {
-                            var a = g.GetUnderlyingObject() as DirectoryEntry;
-                            foreach (var ua in _adConf.GroupAttributes)
-                            {
-                                var po = a.Properties[ua];
-                                if (po != null && po.Value != null)
-                                {
-                                    adgroup.Claims.Add(new Claim(ua, po.Value.ToString()));
-                                    Console.WriteLine(ua + "(group):" + po.Value.ToString());
-                                }
-                            }
-                        }
-
-                        aduser.Groups.Add(adgroup);
-                    }
+                    var id = (string)group;
+                    var g = id.Split(',').First().TrimStart("CN=");
+                    aduser.Groups.Add(new ActiveDirectoryGroup() { Name = g });
                 }
-                catch (Exception ex)
-                {
-                    aduser.ErrorRetringGroups = ex.Message;
-                }
-             
-
             }
 
             return aduser;
         }
 
-        public async Task<UserPrincipal> GetUserAsync(string name)
-        {
-            using (var context = GetContext())
-            {
-                UserPrincipal u = UserPrincipal.FindByIdentity(context, name);
-                return u;
-            }
-        }
-        public async Task<List<GroupPrincipal>> GetUserGroupsAsync(string name)
-        {
-            using (var context = GetContext()) 
-            { 
-                UserPrincipal u = UserPrincipal.FindByIdentity(context, name);
-                if (u == null)
-                    return null;
-                var gs = u.GetAuthorizationGroups().ToList().Where(o => o is GroupPrincipal).Select(o => (GroupPrincipal)o).ToList();
-                return gs;
-            }
-        }
+        //public async Task<UserPrincipal> GetUserAsync(string name)
+        //{
+        //    using (var context = GetContext())
+        //    {
+        //        UserPrincipal u = UserPrincipal.FindByIdentity(context, name);
+        //        return u;
+        //    }
+        //}
+        //public async Task<List<GroupPrincipal>> GetUserGroupsAsync(string name)
+        //{
+        //    using (var context = GetContext()) 
+        //    { 
+        //        UserPrincipal u = UserPrincipal.FindByIdentity(context, name);
+        //        if (u == null)
+        //            return null;
+        //        var gs = u.GetAuthorizationGroups().ToList().Where(o => o is GroupPrincipal).Select(o => (GroupPrincipal)o).ToList();
+        //        return gs;
+        //    }
+        //}
 
         public async Task<bool> ValidateCredentialsAsync(string userName, string password)
         {
-            using (var context = GetContext())
-                return context.ValidateCredentials(userName,password);
+            try
+            {
+                LdapConnection connection = new LdapConnection(_adConf.Server + ":" + _adConf.Port.ToString());
+                NetworkCredential credential = new NetworkCredential(userName, password);
+                connection.Credential = credential;
+                connection.Bind();
+
+                return true;
+            }
+            catch (LdapException lexc)
+            {
+                string error = lexc.ServerErrorMessage;
+                var errorcode = lexc.ServerErrorMessage.Split(',').FirstOrDefault(e => e.Trim().ToLower().StartsWith("data"))
+                    .Split(' ').Last();
+                if (errorcode == "525")
+                    error = "525​ user not found ​(1317)";
+                if (errorcode == "52e")
+                    error = "52e​ invalid credentials ​(1326)";
+                if (errorcode == "530")
+                    error = "530​ not permitted to logon at this time​ (1328)";
+                if (errorcode == "531")
+                    error = "531​ not permitted to logon at this workstation​ (1329)";
+                if (errorcode == "532")
+                    error = "532​ password expired ​(1330)";
+                if (errorcode == "533")
+                    error = "533​ account disabled ​(1331)";
+                if (errorcode == "701")
+                    error = "701​ account expired ​(1793)";
+                if (errorcode == "773")
+                    error = "773​ user must reset password (1907)";
+                if (errorcode == "775")
+                    error = "775​ user account locked (1909)";
+
+                throw new Exception(error);
+
+            }
+           
+        }
+
+       
+        public async Task<List<ActiveDirectoryGroup>> GetUserGroupsAsync(string name)
+        {
+            var adu = await GetAdUserAsync(name, false);
+            return adu.Groups.ToList();
         }
     }
 

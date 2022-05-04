@@ -38,6 +38,32 @@ namespace Hills.IdentityServer4.Deployment
         {
             try
             {
+                //update client dns
+                foreach (var c in Program.Clients)
+                {
+                    //AllowedCorsOrigins
+                    var tempACO = c.AllowedCorsOrigins.ToList();
+                    c.AllowedCorsOrigins.Clear();
+                    foreach (var dns in Program.DnsList)
+                        foreach (var c2 in tempACO)
+                            c.AllowedCorsOrigins.Add(c2.Replace("localhost", dns));
+
+                    //AllowedCorsOrigins
+                    var tempRU = c.RedirectUris.ToList();
+                    c.RedirectUris.Clear();
+                    foreach (var dns in Program.DnsList)
+                        foreach (var c2 in tempRU)
+                            c.RedirectUris.Add(c2.Replace("localhost", dns));
+
+                    //AllowedCorsOrigins
+                    var tempPLRU = c.PostLogoutRedirectUris.ToList();
+                    c.PostLogoutRedirectUris.Clear();
+                    foreach (var dns in Program.DnsList)
+                        foreach (var c2 in tempPLRU)
+                            c.PostLogoutRedirectUris.Add(c2.Replace("localhost", dns));
+
+                }
+
 
                 //close current form and open next
                 new Step05_PreConfiguredServices().Show();
@@ -58,7 +84,7 @@ namespace Hills.IdentityServer4.Deployment
 
         private void ucEndPointsEditor_OnUpdateStatus(object sender, InfoEventArrgs e)
         {
-            EnableNext = ucEndPointsEditor.ValidEndPointsCount > 0 && ucEndPointsEditorAdmin.ValidEndPointsCount > 0;
+            EnableNext = ucEndPointsEditor.ValidEndPointsCount > 0 && ucEndPointsEditorAdmin.ValidEndPointsCount > 0 && Program.DnsList.Any();
         }
 
         private void lnkCertificateTool_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -66,6 +92,31 @@ namespace Hills.IdentityServer4.Deployment
             new CertificateTool().ShowDialog();
             ucEndPointsEditor.UpdateTable();
             ucEndPointsEditorAdmin.UpdateTable();
+        }
+
+        private void lnkAddDNS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var ed = new EditDns();
+            if (ed.ShowDialog() == DialogResult.OK)
+                Program.DnsList.Add(ed.Dns);
+            RefreshDnsList();
+        }
+
+        private void RefreshDnsList()
+        {
+            lstDNS.DataSource = Program.DnsList;
+            ucEndPointsEditor_OnUpdateStatus(null, null);
+        }
+
+        private void lnkEditDNS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (lstDNS.SelectedItems.Count > 0)
+            {
+                var ed = new EditDns((string)lstDNS.SelectedValue);
+                if (ed.ShowDialog() == DialogResult.OK)
+                    Program.DnsList.Add(ed.Dns);
+                RefreshDnsList();
+            }            
         }
     }
 }

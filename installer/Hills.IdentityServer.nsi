@@ -13,7 +13,7 @@
  ; Name
 !define PRODUCT_NAME "Hills.IdentityServer"
  ; Version
-!define PRODUCT_VERSION "0.0.19"
+!define PRODUCT_VERSION "0.0.21"
  ; Installation icon path
 !define INSTALL_ICON             "icon.ico"
  ; Uninstall icon path

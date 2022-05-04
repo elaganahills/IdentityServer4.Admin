@@ -3,8 +3,7 @@
     "Clients": [
       {
         "ClientId": "hills_identity_admin",
-        "ClientName": "hills_identity_admin",
-        "ClientUri": "https://localhost:44303",
+        "ClientName": "hills_identity_admin",        
         "AllowedGrantTypes": [
           "authorization_code"
         ],
@@ -15,56 +14,19 @@
           }
         ],
         "RedirectUris": [
-          "https://localhost:44303/signin-oidc"
+          "https://localhost:6011/signin-oidc"
         ],
-        "FrontChannelLogoutUri": "https://localhost:44303/signout-oidc",
         "PostLogoutRedirectUris": [
-          "https://localhost:44303/signout-callback-oidc"
+          "https://localhost:6011/signout-callback-oidc"
         ],
         "AllowedCorsOrigins": [
-          "https://localhost:44303"
+          "https://localhost:6011"
         ],
         "AllowedScopes": [
           "openid",
           "email",
           "profile",
           "roles"
-        ]
-      },
-      {
-        "ClientId": "angularClient",
-        "ClientName": "angularClient",
-        "UpdateAccessTokenClaimsOnRefresh": true,
-        "AllowOfflineAccess": true,
-        "AllowedGrantTypes": [
-          "authorization_code"
-        ],
-        "RequirePkce": true,
-        "RequireClientSecret": false,
-        "RedirectUris": [
-          "https://localhost:5001",
-          "http://localhost:4200",
-          "http://localhost:5000",
-          "https://localhost:5001/silent-renew.html",
-          "http://localhost:4200/silent-renew.html",
-          "http://localhost:5000/silent-renew.html"
-        ],
-        "PostLogoutRedirectUris": [
-          "https://localhost:5001",
-          "http://localhost:4200",
-          "http://localhost:5000"
-        ],
-        "AllowedCorsOrigins": [
-          "https://localhost:5001",
-          "http://localhost:4200",
-          "http://localhost:5000"
-        ],
-        "AllowedScopes": [
-          "openid",
-          "email",
-          "profile",
-          "roles",
-          "angularClient_api"
         ]
       },
       {

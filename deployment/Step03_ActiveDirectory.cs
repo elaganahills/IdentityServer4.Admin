@@ -27,7 +27,8 @@ namespace Hills.IdentityServer4.Deployment
         private void Step03_ActiveDirectory_Load(object sender, EventArgs e)
         {
 #if DEBUG
-            txtServer.Text = "WIN-KJITMKTSORO";
+            chkEnable.Checked = true;
+            txtServer.Text = "7.103.222.179";
             txtUsername.Text = "Administrator";
             txtPassword.Text = "Merlon99";
             txtTestUsername.Text = "Administrator";

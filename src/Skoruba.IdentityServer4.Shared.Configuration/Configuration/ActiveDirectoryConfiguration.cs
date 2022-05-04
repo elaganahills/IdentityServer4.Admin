@@ -26,5 +26,9 @@ namespace Skoruba.IdentityServer4.Shared.Configuration.Configuration
         public bool UseSigning { get; set; }
         public bool UseSealing { get; set; }
         public bool UseServerBind { get; set; }
+        public bool UseSecure { get; set; }
+        public bool UseReadonlyServer { get; set; }
+        public bool UseAnonymous { get; set; }
+        public bool UseDelegation { get; set; }
     }
 }

@@ -28,16 +28,16 @@
     }
   ],
   "ActiveDirectoryConfiguration": {
-    "Enabled": false,
-    "Server": "",
+    "Enabled": true,
+    "Server": "7.103.222.179",
     "SearchBaseDN": "",
     "WindowsAutentiction": false,
-    "Username": "",
-    "Password": "",
+    "Username": "Administrator",
+    "Password": "Merlon99",
     "HHSOID": "",
     "LoadAtributes": false,
     "AtributesStartFilter": "",
     "Port": 389,
-    "IdentityServerAdminRole": ""
+    "IdentityServerAdminRole": "Schema Admins"
   }
 }

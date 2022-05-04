@@ -139,8 +139,7 @@ namespace Hills.IdentityServer4.Deployment
             // 
             // ucSqlConnection
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.cmdTestConnection);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label5);
@@ -152,6 +151,7 @@ namespace Hills.IdentityServer4.Deployment
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.txtServer);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "ucSqlConnection";
             this.Size = new System.Drawing.Size(404, 176);
             this.ResumeLayout(false);
