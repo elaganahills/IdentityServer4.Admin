@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.452
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "admin", "admin", "{588205D4-3A30-4DA4-849D-C7422C396DAA}"
 EndProject
@@ -59,11 +59,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skoruba.IdentityServer4.Sha
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{E2AA13F5-A81D-43FF-8922-32CA331363EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hills.IdentityServer4.Deployment", "deployment\Hills.IdentityServer4.Deployment.csproj", "{BC3C0DC3-CD92-4894-8268-39DEC433CA3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hills.IdentityServer4.Deployment", "deployment\Hills.IdentityServer4.Deployment.csproj", "{BC3C0DC3-CD92-4894-8268-39DEC433CA3B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "externals", "externals", "{B8D75A90-2266-4B63-9C18-514A0BA03D84}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hills.Extensions", "..\Hills.Monitoring\Hills.Extensions\Hills.Extensions.csproj", "{AF2506B5-2C11-4B6C-948F-F789F4207F70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hills.Extensions.Windows", "..\Hills.Monitoring\Hills.Extensions.Windows\Hills.Extensions.Windows.csproj", "{62E77B47-3A7C-4BC6-AABA-1D68E414A193}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -167,6 +169,10 @@ Global
 		{AF2506B5-2C11-4B6C-948F-F789F4207F70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF2506B5-2C11-4B6C-948F-F789F4207F70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF2506B5-2C11-4B6C-948F-F789F4207F70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62E77B47-3A7C-4BC6-AABA-1D68E414A193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62E77B47-3A7C-4BC6-AABA-1D68E414A193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62E77B47-3A7C-4BC6-AABA-1D68E414A193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62E77B47-3A7C-4BC6-AABA-1D68E414A193}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -195,6 +201,7 @@ Global
 		{D49A2D61-AEEB-457C-B3BA-D1322EB2F4EC} = {EE588CE5-51D0-4E98-A2B3-40EC8E655931}
 		{BC3C0DC3-CD92-4894-8268-39DEC433CA3B} = {E2AA13F5-A81D-43FF-8922-32CA331363EE}
 		{AF2506B5-2C11-4B6C-948F-F789F4207F70} = {B8D75A90-2266-4B63-9C18-514A0BA03D84}
+		{62E77B47-3A7C-4BC6-AABA-1D68E414A193} = {B8D75A90-2266-4B63-9C18-514A0BA03D84}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B3166EDE-037B-4C68-BEBA-5DE9C5E3DB82}

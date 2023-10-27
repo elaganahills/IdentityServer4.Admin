@@ -13,4 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Skoruba.IdentityServer4.Admin.EntityFramework.Configuration\Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\Configuration\" />
+  </ItemGroup>
 </Project>

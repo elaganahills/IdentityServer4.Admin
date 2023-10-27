@@ -15,4 +15,8 @@
     <PackageReference Include="Sendgrid" Version="9.25.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Hills.Monitoring\Hills.Extensions\Hills.Extensions.csproj" />
+  </ItemGroup>
+
 </Project>

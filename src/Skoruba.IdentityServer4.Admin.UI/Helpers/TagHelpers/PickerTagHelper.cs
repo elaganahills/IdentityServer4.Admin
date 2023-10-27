@@ -25,6 +25,10 @@ namespace Skoruba.IdentityServer4.Admin.UI.Helpers.TagHelpers
 
         public string NoItemSelectedTitle { get; set; }
 
+        public string LinkText { get; set; }
+        public string LinkUrl { get; set; }
+        public bool ShowLink { get; set; }
+
         public List<string> SelectedItems { get; set; }
 
         public string SelectedItem { get; set; }
@@ -74,6 +78,9 @@ namespace Skoruba.IdentityServer4.Admin.UI.Helpers.TagHelpers
                     search = "",
                     hiddenId = Id,
                     url = Url,
+                    linkText = LinkText,
+                    linkUrl = LinkUrl,
+                    showLink = ShowLink,
                     selectedItemsTitle = SelectedItemsTitle,
                     allowSuggestedItems = AllowSuggestedItems,
                     searchResultTitle = SearchResultTitle,

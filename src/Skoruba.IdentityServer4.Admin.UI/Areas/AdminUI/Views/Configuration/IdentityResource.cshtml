@@ -118,7 +118,7 @@
 					@await Html.PartialAsync("IdentityResource/Section/Label", "UserClaims")
 				</label>
 				<div class="col-sm-9">
-					<picker id="UserClaimsItems" multiple-select="true" min-search-text="2"
+					<picker id="UserClaimsItems" multiple-select="true" min-search-text="2" show-link="true" link-text="Values" link-url="../IdentityResourceValues/"
 							selected-items="@Model.UserClaims" url="@Url.Action("SearchClaims","Configuration")?claim"
 							search-input-placeholder="@Localizer["PickerSearchItemPlaceholder"].Value"
 							selected-items-title="@Localizer["PickerSelectedItemsTitle"].Value"

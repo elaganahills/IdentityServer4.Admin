@@ -13,7 +13,7 @@
  ; Name
 !define PRODUCT_NAME "Hills.IdentityServer"
  ; Version
-!define PRODUCT_VERSION "0.0.21"
+!define PRODUCT_VERSION "0.0.24"
  ; Installation icon path
 !define INSTALL_ICON             "icon.ico"
  ; Uninstall icon path
@@ -85,15 +85,15 @@ Section
  
     # set the installation directory as the destination for the following actions
     SetOutPath "$INSTDIR\Hills.IdentityServer4.Deployment"	
-	File /r "..\deployment\bin\Release\net5.0-windows\publish\*"
+	File /r "..\deployment\bin\Release\net6.0-windows\publish\*"
 	
 	# set the installation directory as the destination for the following actions
     SetOutPath "$INSTDIR\Hills.IdentityServer4.Admin"	
-	File /r "..\src\Skoruba.IdentityServer4.Admin\bin\Release\net5.0\publish\*"
+	File /r "..\src\Skoruba.IdentityServer4.Admin\bin\Release\net6.0\publish\*"
  
  	# set the installation directory as the destination for the following actions
     SetOutPath "$INSTDIR\Hills.IdentityServer4"	
-	File /r "..\src\Skoruba.IdentityServer4.STS.Identity\bin\Release\net5.0\publish\*"
+	File /r "..\src\Skoruba.IdentityServer4.STS.Identity\bin\Release\net6.0\publish\*"
 	
     # create the uninstaller
     WriteUninstaller "$INSTDIR\uninstall.exe"

@@ -2,14 +2,15 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyVersion>0.0.0.14</AssemblyVersion>
-    <FileVersion>0.0.0.14</FileVersion>
+    <AssemblyVersion>0.0.0.22</AssemblyVersion>
+    <FileVersion>0.0.0.22</FileVersion>
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Hills.Monitoring\Hills.Extensions.Windows\Hills.Extensions.Windows.csproj" />
     <ProjectReference Include="..\..\Hills.Monitoring\Hills.Extensions\Hills.Extensions.csproj" />
     <ProjectReference Include="..\src\Skoruba.IdentityServer4.Admin.EntityFramework.Configuration\Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.csproj" />
     <ProjectReference Include="..\src\Skoruba.IdentityServer4.Shared.Configuration\Skoruba.IdentityServer4.Shared.Configuration.csproj" />
@@ -62,7 +63,7 @@
   <ItemGroup>
     <PackageReference Include="IdentityServer4.Storage" Version="4.1.2" />
     <PackageReference Include="TextCopy" Version="4.3.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0.0" />
   </ItemGroup>
   
   <ItemGroup>

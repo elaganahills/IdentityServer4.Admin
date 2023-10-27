@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\AdminUI\Views\Configuration\IdentityResourceValues.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
@@ -46,6 +50,7 @@
     <None Include="Areas\AdminUI\Views\Configuration\IdentityResourceDelete.cshtml" />
     <None Include="Areas\AdminUI\Views\Configuration\IdentityResourceProperties.cshtml" />
     <None Include="Areas\AdminUI\Views\Configuration\IdentityResourcePropertyDelete.cshtml" />
+    <None Include="Areas\AdminUI\Views\Configuration\IdentityResourceValues.cshtml" />
     <None Include="Areas\AdminUI\Views\Configuration\IdentityResources.cshtml" />
     <None Include="Areas\AdminUI\Views\Configuration\IdentityResource\Section\Label.cshtml" />
     <None Include="Areas\AdminUI\Views\Grant\PersistedGrant.cshtml" />
@@ -106,6 +111,12 @@
     <ProjectReference Include="..\Skoruba.IdentityServer4.Admin.BusinessLogic\Skoruba.IdentityServer4.Admin.BusinessLogic.csproj" />
     <ProjectReference Include="..\Skoruba.IdentityServer4.Admin.EntityFramework.Configuration\Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.csproj" />
     <ProjectReference Include="..\Skoruba.IdentityServer4.Shared.Configuration\Skoruba.IdentityServer4.Shared.Configuration.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Areas\AdminUI\Views\Configuration\IdentityResourceValues.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

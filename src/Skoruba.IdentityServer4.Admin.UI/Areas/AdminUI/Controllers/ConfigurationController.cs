@@ -689,6 +689,15 @@ namespace Skoruba.IdentityServer4.Admin.UI.Areas.AdminUI.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> IdentityResourceValues(int idresurce, string claim, int? page, string search)
+        {
+            //ViewBag.Search = search;
+            //var identityResourceValuesDto = await _identityResourceService.GetIdentityResourceValuesAsync(idresurce, claim, search, page ?? 1);
+
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> ApiSecretDelete(int id)
         {
             if (id == 0) return NotFound();

@@ -1,5 +1,5 @@
 {
-  "ConnectionStrings": {
+  /*"ConnectionStrings": {
     "ConfigurationDbConnection": "Data Source=.\\SQLEXPRESS;Initial Catalog=IdentityServer4Admin;Integrated Security=True;MultipleActiveResultSets=True",
     "PersistedGrantDbConnection": "Data Source=.\\SQLEXPRESS;Initial Catalog=IdentityServer4Admin;Integrated Security=True;MultipleActiveResultSets=True",
     "AdminLogDbConnection": "Data Source=.\\SQLEXPRESS;Initial Catalog=IdentityServer4Admin;Integrated Security=True;MultipleActiveResultSets=True",
@@ -7,6 +7,15 @@
     "AdminAuditLogDbConnection": "Data Source=.\\SQLEXPRESS;Initial Catalog=IdentityServer4Admin;Integrated Security=True;MultipleActiveResultSets=True",
     "DataProtectionDbConnection": "Data Source=.\\SQLEXPRESS;Initial Catalog=IdentityServer4Admin;Integrated Security=True;MultipleActiveResultSets=True",
     "SerilogDbConnection": "Data Source=.\\SQLEXPRESS;Initial Catalog=IdentityServer4Admin;Integrated Security=True;MultipleActiveResultSets=True"
+  },*/
+  "ConnectionStrings": {
+    "ConfigurationDbConnection": "Data Source=hills-mssqlexpress-development.c7fabmyvnnhc.ap-southeast-2.rds.amazonaws.com;Initial Catalog=IdentityServer4Admin;Integrated Security=False;User ID=admin;Password=7b00T2LtJ^ZZ!;MultipleActiveResultSets=True",
+    "PersistedGrantDbConnection": "Data Source=hills-mssqlexpress-development.c7fabmyvnnhc.ap-southeast-2.rds.amazonaws.com;Initial Catalog=IdentityServer4Admin;Integrated Security=False;User ID=admin;Password=7b00T2LtJ^ZZ!;MultipleActiveResultSets=True",
+    "AdminLogDbConnection": "Data Source=hills-mssqlexpress-development.c7fabmyvnnhc.ap-southeast-2.rds.amazonaws.com;Initial Catalog=IdentityServer4Admin;Integrated Security=False;User ID=admin;Password=7b00T2LtJ^ZZ!;MultipleActiveResultSets=True",
+    "IdentityDbConnection": "Data Source=hills-mssqlexpress-development.c7fabmyvnnhc.ap-southeast-2.rds.amazonaws.com;Initial Catalog=IdentityServer4Admin;Integrated Security=False;User ID=admin;Password=7b00T2LtJ^ZZ!;MultipleActiveResultSets=True",
+    "AdminAuditLogDbConnection": "Data Source=hills-mssqlexpress-development.c7fabmyvnnhc.ap-southeast-2.rds.amazonaws.com;Initial Catalog=IdentityServer4Admin;Integrated Security=False;User ID=admin;Password=7b00T2LtJ^ZZ!;MultipleActiveResultSets=True",
+    "DataProtectionDbConnection": "Data Source=hills-mssqlexpress-development.c7fabmyvnnhc.ap-southeast-2.rds.amazonaws.com;Initial Catalog=IdentityServer4Admin;Integrated Security=False;User ID=admin;Password=7b00T2LtJ^ZZ!;MultipleActiveResultSets=True",
+    "SerilogDbConnection": "Data Source=hills-mssqlexpress-development.c7fabmyvnnhc.ap-southeast-2.rds.amazonaws.com;Initial Catalog=IdentityServer4Admin;Integrated Security=False;User ID=admin;Password=7b00T2LtJ^ZZ!;MultipleActiveResultSets=True"
   },
   "AdminConfiguration": { "IdentityAdminBaseUrl": "https://localhost:6011" },
   "EndPoints": [
@@ -24,16 +33,24 @@
     }
   ],
   "ActiveDirectoryConfiguration": {
-    "Enabled": true,
-    "Server": "7.103.222.179",
+    "Enabled": false,
+    "Server": "",
     "SearchBaseDN": "",
-    "WindowsAutentiction": false,
-    "Username": "Administrator",
-    "Password": "Merlon99",
-    "HHSOID": "",
-    "LoadAtributes": false,
-    "AtributesStartFilter": "",
+    "WindowsAutentication": false,
+    "UseSecureSocketLayer": false,
+    "Username": "",
+    "Password": "",
     "Port": 389,
-    "IdentityServerAdminRole": "Schema Admins"
+    "IdentityServerAdminRole": "",
+    "LoadAttributes": false,
+    "UseSimpleBind": false,
+    "UseNegotiate": false,
+    "UseSigning": false,
+    "UseSealing": false,
+    "UseServerBind": false,
+    "UseSecure": false,
+    "UseReadonlyServer": false,
+    "UseAnonymous": false,
+    "UseDelegation": false
   }
 }

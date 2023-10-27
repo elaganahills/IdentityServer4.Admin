@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using Hills.Extensions;
 using Skoruba.IdentityServer4.Shared.Configuration.Configuration;
 using Skoruba.IdentityServer4.Shared.Configuration.Configuration.Identity;
+using Hills.Extensions.Windows;
 
 namespace Hills.IdentityServer4.Deployment
 {

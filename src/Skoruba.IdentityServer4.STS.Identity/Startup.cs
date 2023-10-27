@@ -16,6 +16,7 @@ using Skoruba.IdentityServer4.Shared.Configuration.Helpers;
 using Skoruba.IdentityServer4.STS.Identity.Services;
 using Microsoft.AspNetCore.Identity;
 using IdentityServer4.Services;
+using Hills.IdentityServer4.STS.Identity.Services;
 
 namespace Skoruba.IdentityServer4.STS.Identity
 {

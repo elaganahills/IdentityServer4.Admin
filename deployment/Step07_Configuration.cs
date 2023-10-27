@@ -1,4 +1,5 @@
 ﻿using Hills.Extensions;
+using Hills.Extensions.Windows;
 using Newtonsoft.Json;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Configuration.Configuration;
 using Skoruba.IdentityServer4.Shared.Configuration.Configuration;
@@ -299,10 +300,16 @@ namespace Hills.IdentityServer4.Deployment
         {
             try
             {
-                var res = SqlServerExtensions.ConfigWindowsUserAsAdmin(Program.SqlConnection_ConfigOnly??Program.SqlConnection);             
-                taskConfigureSqlUser.Set(res.Succesfull?ucTaskResult.Statuses.Good:ucTaskResult.Statuses.Error, res.Details);
-
-                return res.Succesfull;
+                if (Program.SqlConnection.DataSource.StartsWith(".")){
+                    var res = SqlServerExtensions.ConfigWindowsUserAsAdmin(Program.SqlConnection_ConfigOnly ?? Program.SqlConnection);
+                    taskConfigureSqlUser.Set(res.Succesfull ? ucTaskResult.Statuses.Good : ucTaskResult.Statuses.Error, res.Details);
+                    return res.Succesfull;
+                } else
+                {
+                    taskConfigureSqlUser.Set( ucTaskResult.Statuses.Good, "Not needed for network SQL Server");
+                    return true;
+                }
+                
             }
             catch (Exception ex)
             {

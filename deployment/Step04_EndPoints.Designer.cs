@@ -100,6 +100,7 @@ namespace Hills.IdentityServer4.Deployment
             this.lnkRemoveDNS.TabIndex = 15;
             this.lnkRemoveDNS.TabStop = true;
             this.lnkRemoveDNS.Text = "Remove";
+            this.lnkRemoveDNS.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkRemoveDNS_LinkClicked);
             // 
             // lnkEditDNS
             // 
