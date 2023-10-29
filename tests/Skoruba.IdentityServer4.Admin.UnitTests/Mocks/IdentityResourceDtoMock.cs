@@ -24,11 +24,27 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Mocks
             return fakerIdentityResource;
         }
 
+
+      public static Faker<ClaimValueDto> GetClaimValueFaker()
+        {
+            var fakerClaimValue = new Faker<ClaimValueDto>()
+                .RuleFor(o => o.Claim, f => Guid.NewGuid().ToString())
+                .RuleFor(o => o.Value, f => f.Random.Words(f.Random.Number(1, 5)));
+
+            return fakerClaimValue;
+        }
         public static IdentityResourceDto GenerateRandomIdentityResource(int id)
         {
             var identityResource = GetIdentityResourceFaker(id).Generate();
 
             return identityResource;
+        }
+
+        public static ClaimValueDto GenerateRandomClaimValue()
+        {
+            var claimValue = GetClaimValueFaker().Generate();
+
+            return claimValue;
         }
 
 	    public static IdentityResourcePropertiesDto GenerateRandomIdentityResourceProperty(int id, int identityResourceId)

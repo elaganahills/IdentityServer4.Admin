@@ -19,7 +19,7 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class IdentityResourceServiceResource {
@@ -58,6 +58,33 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Claim Value {0} {1} doesn&apos;t exist.
+        /// </summary>
+        internal static string ClaimValueDoesNotExist {
+            get {
+                return ResourceManager.GetString("ClaimValueDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Claim Value {0} already exists.
+        /// </summary>
+        internal static string ClaimValueExistsClaim {
+            get {
+                return ResourceManager.GetString("ClaimValueExistsClaim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Claim Value {0} already exists.
+        /// </summary>
+        internal static string ClaimValueExistsValue {
+            get {
+                return ResourceManager.GetString("ClaimValueExistsValue", resourceCulture);
             }
         }
         

@@ -48,7 +48,19 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Services
             return identityResourceDto;
         }
 
-        public virtual async Task<IdentityResourcePropertiesDto> GetIdentityResourcePropertiesAsync(int identityResourceId, int page = 1, int pageSize = 10)
+		public virtual async Task<ClaimValueDto> GetClaimValueAsync(string claim, string value)
+		{
+			var claimValue = await IdentityResourceRepository.GetClaimValueAsync(claim, value);
+			if (claimValue == null) throw new UserFriendlyErrorPageException(string.Format(IdentityResourceServiceResources.ClaimValueDoesNotExist().Description, claim, value));
+
+			var claimValueDto = claimValue.ToModel();
+
+			await AuditEventLogger.LogEventAsync(new ClaimValueRequestedEvent(claimValueDto));
+
+			return claimValueDto;
+		}
+
+		public virtual async Task<IdentityResourcePropertiesDto> GetIdentityResourcePropertiesAsync(int identityResourceId, int page = 1, int pageSize = 10)
         {
             var identityResource = await IdentityResourceRepository.GetIdentityResourceAsync(identityResourceId);
             if (identityResource == null) throw new UserFriendlyErrorPageException(string.Format(IdentityResourceServiceResources.IdentityResourceDoesNotExist().Description, identityResourceId), IdentityResourceServiceResources.IdentityResourceDoesNotExist().Description);
@@ -129,7 +141,14 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Services
             return await IdentityResourceRepository.CanInsertIdentityResourceAsync(resource);
         }
 
-        public virtual async Task<int> AddIdentityResourceAsync(IdentityResourceDto identityResource)
+		public virtual async Task<bool> CanInsertClaimValueAsync(ClaimValueDto claimValue)
+		{
+			var resource = claimValue.ToEntity();
+
+			return await IdentityResourceRepository.CanInsertClaimValueAsync(resource);
+		}
+
+		public virtual async Task<int> AddIdentityResourceAsync(IdentityResourceDto identityResource)
         {
             var canInsert = await CanInsertIdentityResourceAsync(identityResource);
             if (!canInsert)
@@ -142,6 +161,24 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Services
             var saved = await IdentityResourceRepository.AddIdentityResourceAsync(resource);
 
             await AuditEventLogger.LogEventAsync(new IdentityResourceAddedEvent(identityResource));
+
+            return saved;
+        }
+
+
+        public virtual async Task<int> AddClaimValueAsync(ClaimValueDto claimValue)
+        {
+            var canInsert = await CanInsertClaimValueAsync(claimValue);
+            if (!canInsert)
+            {
+                throw new UserFriendlyViewException(string.Format(IdentityResourceServiceResources.ClaimValueExistsClaim().Description, claimValue.Claim), IdentityResourceServiceResources.ClaimValueExistsValue().Description, claimValue);
+            }
+
+            var resource = claimValue.ToEntity();
+
+            var saved = await IdentityResourceRepository.AddClaimValueAsync(resource);
+
+            await AuditEventLogger.LogEventAsync(new ClaimValueAddedEvent(claimValue));
 
             return saved;
         }
@@ -176,7 +213,18 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Services
             return deleted;
         }
 
-        public virtual IdentityResourceDto BuildIdentityResourceViewModel(IdentityResourceDto identityResource)
+		public virtual async Task<int> DeleteClaimValueAsync(ClaimValueDto claimValue)
+		{
+			var resource = claimValue.ToEntity();
+
+			var deleted = await IdentityResourceRepository.DeleteClaimValueAsync(resource);
+
+			await AuditEventLogger.LogEventAsync(new ClaimValueDeletedEvent(claimValue));
+
+			return deleted;
+		}
+
+		public virtual IdentityResourceDto BuildIdentityResourceViewModel(IdentityResourceDto identityResource)
         {
             ComboBoxHelpers.PopulateValuesToList(identityResource.UserClaimsItems, identityResource.UserClaims);
 

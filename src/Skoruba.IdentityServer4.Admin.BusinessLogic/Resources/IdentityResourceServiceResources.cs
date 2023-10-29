@@ -57,5 +57,32 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Resources
                 Description = IdentityResourceServiceResource.IdentityResourcePropertyExistsKey
             };
         }
-    }
+
+		public virtual ResourceMessage ClaimValueExistsClaim()
+		{
+			return new ResourceMessage()
+			{
+				Code = nameof(ClaimValueExistsClaim),
+				Description = IdentityResourceServiceResource.ClaimValueExistsClaim
+			};
+		}
+
+		public virtual ResourceMessage ClaimValueExistsValue()
+		{
+			return new ResourceMessage()
+			{
+				Code = nameof(ClaimValueExistsValue),
+				Description = IdentityResourceServiceResource.ClaimValueExistsValue
+			};
+		}
+
+		public virtual ResourceMessage ClaimValueDoesNotExist()
+		{
+			return new ResourceMessage()
+			{
+				Code = nameof(ClaimValueDoesNotExist),
+				Description = IdentityResourceServiceResource.ClaimValueDoesNotExist
+			};
+		}
+	}
 }

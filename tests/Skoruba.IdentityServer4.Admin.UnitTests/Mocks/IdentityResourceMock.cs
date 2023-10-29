@@ -1,6 +1,7 @@
 ﻿using System;
 using Bogus;
 using IdentityServer4.EntityFramework.Entities;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
 
 namespace Skoruba.IdentityServer4.Admin.UnitTests.Mocks
 {
@@ -20,6 +21,15 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Mocks
                 .RuleFor(o => o.UserClaims, f => GetIdentityClaimFaker(0).Generate(f.Random.Number(10)));
 
             return fakerIdentityResource;
+        }
+
+        public static Faker<ClaimValue> GetClaimValueFaker()
+        {
+            var fakerClaimValue = new Faker<ClaimValue>()
+                .RuleFor(o => o.Claim, f => Guid.NewGuid().ToString())
+                .RuleFor(o => o.Value, f => f.Random.Words(f.Random.Number(1, 5)));
+
+            return fakerClaimValue;
         }
 
 	    public static IdentityResourceProperty GenerateRandomIdentityResourceProperty(int id)
@@ -54,6 +64,13 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Mocks
         public static IdentityResource GenerateRandomIdentityResource(int id)
         {
             var identityResource = GetIdentityResourceFaker(id).Generate();
+
+            return identityResource;
+        }
+
+        public static ClaimValue GenerateRandomClaimValue()
+        {
+            var identityResource = GetClaimValueFaker().Generate();
 
             return identityResource;
         }

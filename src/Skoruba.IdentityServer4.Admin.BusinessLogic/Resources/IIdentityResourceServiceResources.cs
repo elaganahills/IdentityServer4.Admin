@@ -15,5 +15,11 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Resources
         ResourceMessage IdentityResourcePropertyExistsValue();
 
         ResourceMessage IdentityResourcePropertyExistsKey();
-    }
+
+        ResourceMessage ClaimValueExistsClaim();
+
+        ResourceMessage ClaimValueExistsValue();
+
+        ResourceMessage ClaimValueDoesNotExist();
+   }
 }

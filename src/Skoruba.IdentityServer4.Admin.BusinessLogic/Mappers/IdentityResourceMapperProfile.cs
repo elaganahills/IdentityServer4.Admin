@@ -7,6 +7,7 @@ using System.Linq;
 using AutoMapper;
 using IdentityServer4.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Admin.BusinessLogic.Dtos.Configuration;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.Common;
 
 namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Mappers
@@ -19,7 +20,11 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Mappers
             CreateMap<IdentityResource, IdentityResourceDto>(MemberList.Destination)
                 .ForMember(x => x.UserClaims, opt => opt.MapFrom(src => src.UserClaims.Select(x => x.Type)));
 
-            CreateMap<IdentityResourceProperty, IdentityResourcePropertyDto>(MemberList.Destination)
+			CreateMap<ClaimValue, ClaimValueDto>(MemberList.Destination)
+                .ReverseMap();
+
+
+			CreateMap<IdentityResourceProperty, IdentityResourcePropertyDto>(MemberList.Destination)
                 .ReverseMap();
 
             CreateMap<IdentityResourceProperty, IdentityResourcePropertiesDto>(MemberList.Destination)

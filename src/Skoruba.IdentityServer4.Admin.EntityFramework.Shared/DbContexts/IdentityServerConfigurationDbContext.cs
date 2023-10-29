@@ -2,7 +2,10 @@
 using IdentityServer4.EntityFramework.Entities;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Constants;
+
 
 namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.DbContexts
 {
@@ -13,7 +16,14 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.DbContexts
         {
         }
 
-        public DbSet<ApiResourceProperty> ApiResourceProperties { get; set; }
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			base.OnModelCreating(builder);
+
+			ConfigureIdentityContext(builder);
+		}
+
+		public DbSet<ApiResourceProperty> ApiResourceProperties { get; set; }
 
         public DbSet<IdentityResourceProperty> IdentityResourceProperties { get; set; }
 
@@ -44,5 +54,13 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Shared.DbContexts
         public DbSet<ApiScopeProperty> ApiScopeProperties { get; set; }
 
         public DbSet<ApiResourceScope> ApiResourceScopes { get; set; }
-    }
+
+        public DbSet<ClaimValue> ClaimValues { get; set; }
+
+		private void ConfigureIdentityContext(ModelBuilder builder)
+		{
+			builder.Entity<ClaimValue>().ToTable(TableConsts.ClaimValues).HasKey(pc => new { pc.Claim, pc.Value });
+
+		}
+	}
 }

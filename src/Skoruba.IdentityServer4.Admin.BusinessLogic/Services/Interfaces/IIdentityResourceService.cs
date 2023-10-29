@@ -29,5 +29,8 @@ namespace Skoruba.IdentityServer4.Admin.BusinessLogic.Services.Interfaces
         Task<int> DeleteIdentityResourcePropertyAsync(IdentityResourcePropertiesDto identityResourceProperty);
 
         Task<bool> CanInsertIdentityResourcePropertyAsync(IdentityResourcePropertiesDto identityResourcePropertiesDto);
-    }
+		Task<int> AddClaimValueAsync(ClaimValueDto claimValueDto);
+		Task<ClaimValueDto> GetClaimValueAsync(string claim, string value);
+        Task<int> DeleteClaimValueAsync(ClaimValueDto claimValue);
+	}
 }

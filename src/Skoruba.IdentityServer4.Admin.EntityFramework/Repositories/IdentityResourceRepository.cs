@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Entities;
 using Microsoft.EntityFrameworkCore;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.Common;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.Enums;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.Extensions;
@@ -48,7 +49,15 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public virtual async Task<PagedList<IdentityResourceProperty>> GetIdentityResourcePropertiesAsync(int identityResourceId, int page = 1, int pageSize = 10)
+		public virtual Task<ClaimValue> GetClaimValueAsync(string claim, string value)
+		{
+			return DbContext.ClaimValues
+				.Where(x => x.Claim == claim && x.Value == value)
+				.AsNoTracking()
+				.SingleOrDefaultAsync();
+		}
+
+		public virtual async Task<PagedList<IdentityResourceProperty>> GetIdentityResourcePropertiesAsync(int identityResourceId, int page = 1, int pageSize = 10)
         {
             var pagedList = new PagedList<IdentityResourceProperty>();
 
@@ -62,7 +71,21 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Repositories
             return pagedList;
         }
 
-        public virtual Task<IdentityResourceProperty> GetIdentityResourcePropertyAsync(int identityResourcePropertyId)
+		public virtual async Task<PagedList<ClaimValue>> GetClaimValuesAsync(string claim, int page = 1, int pageSize = 10)
+		{
+			var pagedList = new PagedList<ClaimValue>();
+
+			var properties = await DbContext.ClaimValues.Where(x => x.Claim == claim).PageBy(x => x.Value, page, pageSize)
+				.ToListAsync();
+
+			pagedList.Data.AddRange(properties);
+			pagedList.TotalCount = await DbContext.ClaimValues.Where(x => x.Claim == claim).CountAsync();
+			pagedList.PageSize = pageSize;
+
+			return pagedList;
+		}
+
+		public virtual Task<IdentityResourceProperty> GetIdentityResourcePropertyAsync(int identityResourcePropertyId)
         {
             return DbContext.IdentityResourceProperties
                 .Include(x => x.IdentityResource)
@@ -80,7 +103,15 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Repositories
             return await AutoSaveChangesAsync();
         }
 
-        public virtual async Task<int> DeleteIdentityResourcePropertyAsync(IdentityResourceProperty identityResourceProperty)
+		public virtual async Task<int> AddClaimValueAsync(ClaimValue claimValue)
+		{
+
+			await DbContext.ClaimValues.AddAsync(claimValue);
+
+			return await AutoSaveChangesAsync();
+		}
+
+		public virtual async Task<int> DeleteIdentityResourcePropertyAsync(IdentityResourceProperty identityResourceProperty)
         {
             var propertyToDelete = await DbContext.IdentityResourceProperties.Where(x => x.Id == identityResourceProperty.Id).SingleOrDefaultAsync();
 
@@ -88,19 +119,31 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Repositories
             return await AutoSaveChangesAsync();
         }
 
-        public virtual async Task<bool> CanInsertIdentityResourcePropertyAsync(IdentityResourceProperty identityResourceProperty)
+		public virtual async Task<int> DeleteClaimValueAsync(ClaimValue claimValue)
+		{
+			DbContext.ClaimValues.Remove(claimValue);
+			return await AutoSaveChangesAsync();
+		}
+
+		public virtual async Task<bool> CanInsertIdentityResourcePropertyAsync(IdentityResourceProperty identityResourceProperty)
         {
             var existsWithSameName = await DbContext.IdentityResourceProperties.Where(x => x.Key == identityResourceProperty.Key
                                                                                        && x.IdentityResource.Id == identityResourceProperty.IdentityResourceId).SingleOrDefaultAsync();
             return existsWithSameName == null;
         }
 
-        /// <summary>
-        /// Add new identity resource
-        /// </summary>
-        /// <param name="identityResource"></param>
-        /// <returns>This method return new identity resource id</returns>
-        public virtual async Task<int> AddIdentityResourceAsync(IdentityResource identityResource)
+		public virtual async Task<bool> CanInsertClaimValueAsync(ClaimValue claimValue)
+		{
+			var existsWithSameName = await DbContext.ClaimValues.Where(x => x.Claim == claimValue.Claim && x.Value == claimValue.Value).SingleOrDefaultAsync();
+			return existsWithSameName == null;
+		}
+
+		/// <summary>
+		/// Add new identity resource
+		/// </summary>
+		/// <param name="identityResource"></param>
+		/// <returns>This method return new identity resource id</returns>
+		public virtual async Task<int> AddIdentityResourceAsync(IdentityResource identityResource)
         {
             DbContext.IdentityResources.Add(identityResource);
 

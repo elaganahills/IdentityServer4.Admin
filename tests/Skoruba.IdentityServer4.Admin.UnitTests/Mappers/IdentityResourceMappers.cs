@@ -52,5 +52,36 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Mappers
             //Assert collection
             identityResource.UserClaims.Select(x => x.Type).Should().BeEquivalentTo(identityResourceDto.UserClaims);
         }
-    }
+
+		[Fact]
+		public void CanMapClaimValueToModel()
+		{
+			//Generate entity
+			var claimValue = IdentityResourceMock.GenerateRandomClaimValue();
+
+			//Try map to DTO
+			var claimValueDto = claimValue.ToModel();
+
+			//Assert
+			claimValueDto.Should().NotBeNull();
+
+			claimValueDto.Should().BeEquivalentTo(claimValue);
+
+		}
+
+		[Fact]
+		public void CanMapClaimValueDtoToEntity()
+		{
+			//Generate DTO
+			var claimValueDto = IdentityResourceDtoMock.GenerateRandomClaimValue();
+
+			//Try map to entity
+			var claimValue = claimValueDto.ToEntity();
+
+			claimValue.Should().NotBeNull();
+
+			claimValueDto.Should().BeEquivalentTo(claimValue);
+
+		}
+	}
 }

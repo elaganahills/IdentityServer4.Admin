@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using IdentityServer4.EntityFramework.Entities;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Extensions.Common;
 
 namespace Skoruba.IdentityServer4.Admin.EntityFramework.Repositories.Interfaces
@@ -9,6 +10,8 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Repositories.Interfaces
         Task<PagedList<IdentityResource>> GetIdentityResourcesAsync(string search, int page = 1, int pageSize = 10);
 
         Task<IdentityResource> GetIdentityResourceAsync(int identityResourceId);
+        
+        Task<ClaimValue> GetClaimValueAsync(string claim, string value);
 
         Task<bool> CanInsertIdentityResourceAsync(IdentityResource identityResource);
 
@@ -32,6 +35,14 @@ namespace Skoruba.IdentityServer4.Admin.EntityFramework.Repositories.Interfaces
 
         Task<int> SaveAllChangesAsync();
 
-        bool AutoSaveChanges { get; set; }
+        Task<PagedList<ClaimValue>> GetClaimValuesAsync(string claim, int page = 1, int pageSize = 10);
+
+        Task<int> AddClaimValueAsync(ClaimValue claimValue);
+
+        Task<int> DeleteClaimValueAsync(ClaimValue claimValue);
+
+        Task<bool> CanInsertClaimValueAsync(ClaimValue claimValue);
+
+		bool AutoSaveChanges { get; set; }
     }
 }

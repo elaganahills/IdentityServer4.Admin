@@ -88,6 +88,28 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Services
 		}
 
 		[Fact]
+		public async Task AddClaimValueAsync()
+		{
+			using (var context = new IdentityServerConfigurationDbContext(_dbContextOptions, _storeOptions))
+			{
+				var identityResourceService = GetIdentityResourceService(context);
+
+				//Generate random new identity resource
+				var claimValueDto = IdentityResourceDtoMock.GenerateRandomClaimValue();
+
+				await identityResourceService.AddClaimValueAsync(claimValueDto);
+
+				//Get new identity resource
+				var identityResource = await context.ClaimValues.Where(x => x.Claim == claimValueDto.Claim && x.Value == claimValueDto.Value).SingleOrDefaultAsync();
+
+				var newClaimValueDto = await identityResourceService.GetClaimValueAsync(identityResource.Claim, identityResource.Value);
+
+				//Assert new identity resource
+				claimValueDto.Should().BeEquivalentTo(newClaimValueDto);
+			}
+		}
+
+		[Fact]
 		public async Task GetIdentityResourceAsync()
 		{
 			using (var context = new IdentityServerConfigurationDbContext(_dbContextOptions, _storeOptions))
@@ -106,6 +128,28 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Services
 
 				//Assert new identity resource
 				identityResourceDto.Should().BeEquivalentTo(newIdentityResourceDto, options => options.Excluding(o => o.Id));
+			}
+		}
+
+		[Fact]
+		public async Task GetClaimValueAsync()
+		{
+			using (var context = new IdentityServerConfigurationDbContext(_dbContextOptions, _storeOptions))
+			{
+				var claimValueService = GetIdentityResourceService(context);
+
+				//Generate random new identity resource
+				var claimValueDto = IdentityResourceDtoMock.GenerateRandomClaimValue();
+
+				await claimValueService.AddClaimValueAsync(claimValueDto);
+
+				//Get new identity resource
+				var claimValue = await context.ClaimValues.Where(x => x.Claim == claimValueDto.Claim && x.Value == claimValueDto.Value).SingleOrDefaultAsync();
+
+				var newClaimValueDto = await claimValueService.GetClaimValueAsync(claimValue.Claim, claimValue.Value);
+
+				//Assert new identity resource
+				claimValueDto.Should().BeEquivalentTo(newClaimValueDto);
 			}
 		}
 
@@ -138,6 +182,41 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Services
 
 				//Assert removed identity resource
 				removeIdentityResource.Should().BeNull();
+			}
+		}
+
+		[Fact]
+		public async Task RemoveClaimValueAsync()
+		{
+			using (var context = new IdentityServerConfigurationDbContext(_dbContextOptions, _storeOptions))
+			{
+				var claimValueService = GetIdentityResourceService(context);
+
+				//Generate random new identity resource
+				var claimValueDto = IdentityResourceDtoMock.GenerateRandomClaimValue();
+
+				await claimValueService.AddClaimValueAsync(claimValueDto);
+
+				//Get new identity resource
+				var claimValue = await context.ClaimValues.Where(x => x.Claim == claimValueDto.Claim && x.Value == claimValueDto.Value).SingleOrDefaultAsync();
+				//Detached the added item
+				context.Entry(claimValue).State = EntityState.Detached;
+
+
+				var newClaimValueDto = await claimValueService.GetClaimValueAsync(claimValue.Claim, claimValue.Value);
+
+				//Assert new identity resource
+				claimValueDto.Should().BeEquivalentTo(newClaimValueDto);
+
+				//Remove identity resource
+				await claimValueService.DeleteClaimValueAsync(newClaimValueDto);
+
+				//Try Get Removed identity resource
+				var removeClaimValue = await context.ClaimValues.Where(x => x.Claim == claimValue.Claim && x.Value == claimValue.Value)
+					.SingleOrDefaultAsync();
+
+				//Assert removed identity resource
+				removeClaimValue.Should().BeNull();
 			}
 		}
 
@@ -176,6 +255,7 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Services
 				updatedIdentityResource.Should().BeEquivalentTo(updatedIdentityResourceDto, options => options.Excluding(o => o.Id));
 			}
 		}
+
 
 		[Fact]
 		public async Task AddIdentityResourcePropertyAsync()

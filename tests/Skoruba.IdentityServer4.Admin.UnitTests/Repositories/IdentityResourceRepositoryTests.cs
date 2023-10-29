@@ -58,7 +58,28 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Repositories
             }
         }
 
-        [Fact]
+		[Fact]
+		public async Task AddClaimValueAsync()
+		{
+			using (var context = new IdentityServerConfigurationDbContext(_dbContextOptions, _storeOptions))
+			{
+				var identityResourceRepository = GetIdentityResourceRepository(context);
+
+				//Generate random new identity resource
+				var identityResource = IdentityResourceMock.GenerateRandomClaimValue();
+
+				//Add new identity resource
+				await identityResourceRepository.AddClaimValueAsync(identityResource);
+
+				//Get new identity resource
+				var newIdentityResource = await context.ClaimValues.Where(x => x.Claim == identityResource.Claim && x.Value == identityResource.Value).SingleAsync();
+
+				//Assert new identity resource
+				newIdentityResource.Should().BeEquivalentTo(identityResource);
+			}
+		}
+
+		[Fact]
         public async Task GetIdentityResourceAsync()
         {
             using (var context = new IdentityServerConfigurationDbContext(_dbContextOptions, _storeOptions))
@@ -113,7 +134,37 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Repositories
             }
         }
 
-        [Fact]
+		[Fact]
+		public async Task DeleteClaimValueAsync()
+		{
+			using (var context = new IdentityServerConfigurationDbContext(_dbContextOptions, _storeOptions))
+			{
+				var identityResourceRepository = GetIdentityResourceRepository(context);
+
+				//Generate random new identity resource
+				var claimValue = IdentityResourceMock.GenerateRandomClaimValue();
+
+				//Add new identity resource
+				await identityResourceRepository.AddClaimValueAsync(claimValue);
+
+				//Get new identity resource
+				var newClaimValue = await context.ClaimValues.Where(x => x.Claim == claimValue.Claim && x.Value == claimValue.Value).SingleAsync();
+
+				//Assert new identity resource
+				newClaimValue.Should().BeEquivalentTo(claimValue);
+
+				//Delete identity resource
+				await identityResourceRepository.DeleteClaimValueAsync(newClaimValue);
+
+				//Get deleted identity resource
+				var deletedClaimValue = await context.ClaimValues.Where(xx => xx.Claim == claimValue.Claim && xx.Value == claimValue.Value).SingleOrDefaultAsync();
+
+				//Assert if it not exist
+				deletedClaimValue.Should().BeNull();
+			}
+		}
+
+		[Fact]
         public async Task UpdateIdentityResourceAsync()
         {
             using (var context = new IdentityServerConfigurationDbContext(_dbContextOptions, _storeOptions))
